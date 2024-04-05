@@ -1,0 +1,22 @@
+<H1>CREATE A WRESTLER</H1>
+<hr>
+<p><input placeholder="Name" type="text" [(ngModel)]="this.blankWrestler.name"></p>
+<p><input placeholder="Nickname" type="text" [(ngModel)]="this.blankWrestler.nickname"></p>
+<p>MALE:<input type="checkbox" [(ngModel)]="this.blankWrestler.male"></p>
+<p><input placeholder="Finisher" type="text" [(ngModel)]="this.blankWrestler.moves[0]"></p>
+<p><input placeholder="Image" type="text" name="" id="" [(ngModel)]="this.blankWrestler.img"></p>
+<button (click)="saveWrestler()">SAVE</button>
+
+<div *ngIf="this.wrestlers.length > 0"> 
+    <p *ngFor="let wres of this.wrestlers"><span *ngIf="wres.nickname.length > 0">"{{wres.nickname}}" </span>{{wres.name}} <img src="{{wres.img}}" alt=""></p>
+    </div>
+
+
+<h1>CREATE A TEAM</h1>
+
+
+
+<H1>EDIT A WRESTLER</H1>
+<hr>
+<button (click)="saveWrestler()"></button>
+

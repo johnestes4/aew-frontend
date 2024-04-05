@@ -1,0 +1,12 @@
+PAGE
+    COMPONENTS NEEDED
+
+
+overall rankings
+    page
+    rankings list - broken out by division
+
+roster
+    rosterbox
+
+wrestler profile
