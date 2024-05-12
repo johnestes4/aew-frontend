@@ -1,10 +1,18 @@
-<div id="profile-container">
-    <div class="profile-portrait big-side">
-        <img src="../../assets/img/profiles/dustin1.png" alt="">
+<div id="rankings-container">
+  <div class="rankings-list justify-content-center">
+    <div
+      class="rankings-item col-6 offset-md-3"
+      *ngFor="let item of rankings; let i = index"
+    >
+      <span class="ranking-number col-md-1 col-sm-2">{{ i + 1 }}</span>
+      <span class="ranking-name col-md-6 col-sm-6">{{
+        item.name.toUpperCase()
+      }}</span>
+      <span class="ranking-power col-md-4 col-sm-3">{{
+        item.power.toFixed(0)
+      }}</span>
     </div>
-    <div class="rankings-top">
-      <div></div>
-    </div>
+  </div>
 </div>
 
 <div></div>

@@ -1,30 +1,51 @@
+body {
+  height: 100vh;
+  width: 100vw;
+}
 nav {
-    width: 100%;
-    height: 40px;
-    margin: 0px;
-    background: rgba(5,5,5, .9);
-    border-radius: 0px;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    border-bottom: 3px solid rgba(255,198,0,1);
-    margin-bottom: 1vh;
-    /*font-size: 14px;*/
-  }
+  width: 100%;
+  height: 40px;
+  margin: 0px;
+  background: rgba(5, 5, 5, 0.9);
+  border-radius: 0px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 3px solid rgba(255, 198, 0, 1);
+  margin-bottom: 1vh;
+  /*font-size: 14px;*/
+}
+#whole-app {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
 
 .nav-icon img {
-    margin: 5px;
-    height: 30px;
-    width: auto;
-    float: left;
+  margin: 5px;
+  height: 30px;
+  width: auto;
+  float: left;
 }
 .nav-text {
-    float: left;
-    color: whitesmoke;
-    height: 40px;
-    padding-top: 8px;
+  float: left;
+  color: whitesmoke;
+  height: 40px;
+  padding-top: 8px;
 }
 
-body {
-    padding: 0px;
+#app-container {
+  position: fixed;
+  left: 0px;
+  top: 42px;
+  width: 100%;
+  overflow-y: scroll;
+  height: calc(100% - 42px);
+  font-family: "Calibri";
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+  //   background-color: green;
 }

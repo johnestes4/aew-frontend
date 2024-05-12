@@ -1,0 +1,79 @@
+.tab-change {
+  height: 30px;
+  margin-bottom: 4px;
+}
+.tab-change button {
+  height: 30px;
+}
+
+h1 button {
+  top: 33px;
+  margin-left: 5px;
+  height: 20px;
+  width: 36px !important;
+  font-size: 12px;
+}
+
+h1 input {
+  height: 46px;
+  text-align: center;
+}
+
+.wres-list-box {
+  height: calc(100vh - 122px);
+  width: 200px;
+  background-color: gray;
+  border: 1px black solid;
+  overflow-y: scroll;
+  padding: 0px;
+  float: left;
+}
+
+.wres-list-item {
+  padding: 4px;
+  text-align: center;
+  cursor: pointer;
+}
+.wres-list-pad {
+  height: 8px;
+  width: 100%;
+  background-color: darkgray;
+  border-top: 1px rgba(0, 0, 0, 0.6) solid;
+  border-bottom: 1px rgba(33, 33, 33, 0.6) solid;
+  float: left;
+}
+
+.active-wres {
+  width: calc(85% - 250px);
+  height: 800px;
+  float: right;
+  border: 1px gray solid;
+  position: relative;
+  right: 15%;
+  background-color: gray;
+  text-align: center;
+  padding: 15px;
+}
+
+.active-wres button {
+  width: 200px;
+}
+
+.wres-trait {
+  border: 1px solid black;
+  background-color: lightgray;
+  color: black;
+  padding-bottom: 6px;
+}
+
+.alias-button {
+  width: 20px !important;
+  height: 20px;
+  float: left;
+  margin-left: 2px;
+  font-size: 20px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  text-align: center !important;
+}

@@ -1,30 +1,33 @@
-import { environment } from '../../environments/environment'
-import { HttpClient } from '@angular/common/http'
-import {map} from 'rxjs/operators'
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+// import { Rankings } from './rankings.model' //use this eventually if you make an explicit model for the rankings
 // import { Observable } from 'rxjs/Observable'
 
 // const dotenv = require('dotenv');
 // //make sure to config dotenv BEFORE requiring app, that way the variables work everywhere
 // dotenv.config({ path: '../config.env' });
 
-
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RankingsService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http:HttpClient) {
+  updateRankings() {}
 
+  getAllRankings(): Observable<any> {
+    // var response = this.http
+    //   .get('localhost:3000/api/wrestlers/rankings')
+    //   .pipe(map((response) => <any>response));
+    // return response;
+
+    return this.http.get('http://localhost:3000/api/wrestlers/rankings').pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
-  getRankings(request: any) {
-    this.http.get('localhost:3000/'+ 'rankings').pipe(map(responseData => {
-      return responseData
-    })).subscribe(rankings => {
-      console.log(rankings)
-    })
-  }
-
-  examplePostReq() {
-
-  }
-
+  examplePostReq() {}
 }

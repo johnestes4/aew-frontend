@@ -1,99 +1,37 @@
-#profile-container {
-    position: fixed;
-    left: 0px;
-    top: 42px;
-    width: 100vw;
-    height: calc(100vh - 42px);
-    font-family: 'Arimo';
-    font-size: 18px;
-    font-weight: bold;
-    padding-top: 10px;
+.rankings-list {
+  height: 100%;
 }
 
-.big-side {
-    background: rgba(35,35,36,1);
-    height: calc(100vh - 62px);
-    float: left;
-    position: relative;
+.rankings-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.33);
+  border-left: 1px solid rgba(255, 255, 255, 0.33);
+  border-right: 1px solid rgba(0, 0, 0, 0.67);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.67);
+  border-radius: 4px;
+  padding: 2px 4px 6px 4px;
+  display: flex;
+  align-items: center;
+  background-color: dimgray;
+  margin-bottom: 4px;
 }
 
-.profile-portrait {
-    width: 45%;
-    margin-right: 5%;
-    margin-left: 5%;
-    overflow: hidden;
+.ranking-number {
+  //   background-color: red;
+  font-size: 36px;
+  padding-right: 16px;
+  padding-left: 20px;
 }
 
-.profile-portrait img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    z-index: 1;
-
+.ranking-name {
+  //   background-color: blue;
+  font-size: 26px;
+  padding-right: 24px;
 }
 
-.info-text {
-    position: absolute;
-    left: 1vw;
-    top: 1vh;
-    z-index: 2;
-    // background: blue;
-    padding: 0px;
-    text-shadow: 2px 2px 2px rgba(0,0,0,.75);
-}
-
-.profile-team span {
-    float: left;
-    font-size: 8px;
-    margin-top: 5px;
-    margin-right: 8px;
-    color: rgba(255,255,255,.75)
-}
-
-.profile-name {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    font-size: 48px;
-    color: rgb(166, 140, 47);
-}
-
-.profile-nickname {
-    margin-top: 0px;
-    color: rgba(255,255,255,1)
-}
-
-.profile-team {
-    margin-top: 0px;
-    color: rgba(255,255,255,1);
-    border-bottom: 1px solid rgba(255,255,255,.75);
-    height: 120px;
-    padding: 0px;
-}
-
-.profile-team p {
-    margin: 0px;
-}
-
-.team-img-box {
-    float: left;
-    height: 80px;
-    width: 80px;
-    overflow: hidden;
-    position: relative;
-}
-.team-img-box img {
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    transform: translate(-50%);
-    height: 100%;
-}
-
-.record-item {
-  font-size: 14px;
-}
-
-.profile-info {
-    width: 35%;
+.ranking-power {
+  //   background-color: green;
+  font-size: 48px;
+  padding-right: 24px;
+  padding-bottom: 3px;
+  text-align: right;
 }

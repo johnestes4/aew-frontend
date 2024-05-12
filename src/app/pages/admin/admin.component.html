@@ -1,22 +1,111 @@
-<H1>CREATE A WRESTLER</H1>
-<hr>
-<p><input placeholder="Name" type="text" [(ngModel)]="this.blankWrestler.name"></p>
-<p><input placeholder="Nickname" type="text" [(ngModel)]="this.blankWrestler.nickname"></p>
-<p>MALE:<input type="checkbox" [(ngModel)]="this.blankWrestler.male"></p>
-<p><input placeholder="Finisher" type="text" [(ngModel)]="this.blankWrestler.moves[0]"></p>
-<p><input placeholder="Image" type="text" name="" id="" [(ngModel)]="this.blankWrestler.img"></p>
-<button (click)="saveWrestler()">SAVE</button>
-
-<div *ngIf="this.wrestlers.length > 0"> 
-    <p *ngFor="let wres of this.wrestlers"><span *ngIf="wres.nickname.length > 0">"{{wres.nickname}}" </span>{{wres.name}} <img src="{{wres.img}}" alt=""></p>
+<div class="tab-change">
+  <button class="col-sm-4" (click)="this.activeTab = 0">WRES EDIT</button>
+  <button class="col-sm-4" (click)="this.activeTab = 1">SCRIPTS</button>
+</div>
+<div class="" *ngIf="this.activeTab == 0">
+  <div class="wres-list-box">
+    <div *ngIf="this.wrestlers.length > 0">
+      <span *ngFor="let wres of this.wrestlers; let i = index">
+        <div class="wres-list-item" (click)="setActiveWres(wres, i)">
+          {{ wres.name }} <img src="{{ wres.img }}" alt="" />
+        </div>
+        <div *ngIf="i < this.wrestlers.length - 1" class="wres-list-pad"></div>
+      </span>
     </div>
+  </div>
+  <div class="active-wres">
+    <div class="row" *ngIf="this.activeWres.name">
+      <div class="col-sm-12">
+        <h1>
+          <span *ngIf="!this.nameEditOn">{{ this.activeWres.name }}</span>
+          <input
+            *ngIf="this.nameEditOn"
+            type="text"
+            [(ngModel)]="this.activeWres.name"
+          />
+          <p>
+            <button *ngIf="!this.nameEditOn" (click)="this.nameEditOn = true">
+              edit
+            </button>
+            <button *ngIf="this.nameEditOn" (click)="this.nameEditOn = false">
+              done
+            </button>
+          </p>
+        </h1>
+        <p>{{ this.activeWres._id }}</p>
+      </div>
+      <div class="wres-trait col-md-4 col-sm-6">
+        <p>ALIASES</p>
+        <div style="float: left; width: calc(100%-22px)">
+          <div
+            *ngFor="
+              let a of this.activeWres.aliases;
+              let i = index;
+              trackBy: trackByFn
+            "
+          >
+            <input type="text" [(ngModel)]="this.activeWres.aliases[i]" />
 
+            <button class="alias-button" (click)="removeAlias(i)">-</button>
+          </div>
+        </div>
+        <div style="float: left; margin-left: 40px">
+          <button class="alias-button" (click)="addAlias()">+</button>
+        </div>
+      </div>
+      <div class="wres-trait col-md-4 col-sm-6">
+        <p>MALE</p>
+        <input
+          type="checkbox"
+          name=""
+          id=""
+          [(ngModel)]="this.activeWres.male"
+        />
+      </div>
+      <div class="wres-trait col-md-4 col-sm-6"><p>ALIASES</p></div>
+      <span style="height: 20px"></span>
+      <div class="col-sm-10 offset-sm-1">
+        <button (click)="saveChanges(this.wresIndex)">SAVE CHANGES</button>
+        <button (click)="discardChanges()">DISCARD CHANGES</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="this.activeTab == 1"></div>
 
-<h1>CREATE A TEAM</h1>
+<!-- <H1>CREATE A WRESTLER</H1>
+    <hr />
+    <p>
+      <input placeholder="Name" type="text" [(ngModel)]="this.blankWrestler.name" />
+    </p>
+    <p>
+      <input
+        placeholder="Nickname"
+        type="text"
+        [(ngModel)]="this.blankWrestler.nickname"
+      />
+    </p>
+    <p>MALE:<input type="checkbox" [(ngModel)]="this.blankWrestler.male" /></p>
+    <p>
+      <input
+        placeholder="Finisher"
+        type="text"
+        [(ngModel)]="this.blankWrestler.moves[0]"
+      />
+    </p>
+    <p>
+      <input
+        placeholder="Image"
+        type="text"
+        name=""
+        id=""
+        [(ngModel)]="this.blankWrestler.img"
+      />
+    </p>
+    <button (click)="saveWrestler()">SAVE</button> -->
 
-
-
-<H1>EDIT A WRESTLER</H1>
-<hr>
-<button (click)="saveWrestler()"></button>
-
+<!-- <h1>CREATE A TEAM</h1>
+    
+    <H1>EDIT A WRESTLER</H1>
+    <hr />
+    <button (click)="saveWrestler()"></button> -->

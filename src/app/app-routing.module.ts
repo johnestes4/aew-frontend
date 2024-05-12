@@ -5,13 +5,14 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
 
 const routes: Routes = [
-  { path: '', component: RankingsComponent},
-  { path: 'wrestler', component: WresprofileComponent},
-  { path: 'rankings', component: RankingsComponent},
+  { path: '', component: RankingsComponent },
+  { path: 'wrestler', component: WresprofileComponent },
+  { path: 'rankings', component: RankingsComponent },
+  { path: 'admin', component: AdminComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
