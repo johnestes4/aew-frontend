@@ -1,16 +1,75 @@
 <div id="rankings-container">
-  <div class="rankings-list justify-content-center">
+  <div class="row">
     <div
-      class="rankings-item col-6 offset-md-3"
-      *ngFor="let item of rankings; let i = index"
+      class="rankings-list col-md-4"
+      *ngFor="let ranking of rankings; let i = index"
     >
-      <span class="ranking-number col-md-1 col-sm-2">{{ i + 1 }}</span>
-      <span class="ranking-name col-md-6 col-sm-6">{{
-        item.name.toUpperCase()
-      }}</span>
-      <span class="ranking-power col-md-4 col-sm-3">{{
-        item.power.toFixed(0)
-      }}</span>
+      <div
+        class="champion-section"
+        *ngFor="let belt of champions[i]; let i2 = index"
+      >
+        <div
+          class="champ-box"
+          [ngClass]="{
+            'champ-4': champions[i].length == 4,
+            'champ-2': champions[i].length == 2,
+            'champ-1': champions[i].length == 1,
+            'champ-buffer': i2 < champions[i].length - 1
+          }"
+        >
+          <div class="champ-picture">
+            <img
+              *ngIf="!belt.championTeam"
+              [src]="belt.champion.profileImage"
+              alt=""
+              [ngClass]="{
+                'champ-picture-4': champions[i].length == 4,
+                'champ-picture-2': champions[i].length == 2,
+                'champ-picture-1': champions[i].length == 1
+              }"
+            />
+            <div
+              [ngClass]="{
+                'champ-picture-4': champions[i].length == 4,
+                'champ-picture-2': champions[i].length == 2,
+                'champ-picture-1': champions[i].length == 1
+              }"
+              *ngIf="belt.championTeam"
+            >
+              <div
+                class="champ-picture-tag-container"
+                *ngFor="let champion of belt.champion"
+              >
+                <div class="champ-picture-tag">
+                  <img [src]="champion.profileImage" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="champ-name">
+            <div class="championship">{{ belt.shortName.toUpperCase() }}</div>
+            <div class="champion" *ngIf="!belt.championTeam">
+              {{ belt.champion.name }}
+              <div class="champion-power">{{ belt.champion.power }}</div>
+            </div>
+            <div class="champion" *ngIf="belt.championTeam">
+              {{ belt.championTeam.name }}
+              <div class="champion-power">{{ belt.championTeam.power }}</div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="champ-buffer" *ngIf="i2 < champions[i].length - 1"></div> -->
+      </div>
+      <div class="champion-section-buffer"></div>
+      <div
+        class="rankings-item col-12"
+        *ngFor="let item of ranking; let i = index"
+      >
+        <div class="ranking-number">{{ i + 1 }}</div>
+        <div class="ranking-buffer"></div>
+        <div class="ranking-name">{{ item.name.toUpperCase() }}</div>
+        <div class="ranking-power">{{ item.power.toFixed(0) }}</div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,44 +1,169 @@
+body {
+  background-color: rgba(244, 244, 244, 1);
+}
 .rankings-list {
   height: 100%;
 }
 
 .rankings-item {
-  border-top: 1px solid rgba(255, 255, 255, 0.33);
-  border-left: 1px solid rgba(255, 255, 255, 0.33);
-  border-right: 1px solid rgba(0, 0, 0, 0.67);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.67);
-  border-radius: 4px;
-  padding: 2px 4px 6px 4px;
+  color: rgba(244, 244, 244, 1);
   height: 80px;
   display: flex;
-  align-items: center;
-  background-color: dimgray;
-  margin-bottom: 4px;
+  // align-items: center;
+  background-color: rgb(0, 0, 0);
+  font-family: "Bahnschrift";
+  margin-bottom: 10px;
 }
 
 .ranking-number {
+  // border-top: 1px solid rgba(255, 255, 255, 0.33);
+  // border-left: 1px solid rgba(255, 255, 255, 0.33);
+  // border-right: 1px solid rgba(0, 0, 0, 0.67);
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center !important;
   // background-color: red;
-  width: 65px;
-  margin-right: 4px;
-  font-size: 40px;
+  height: 80px;
+  width: 70px;
+  font-size: 62px;
   text-align: center;
+  // letter-spacing: -5px;
   // padding-right: 16px;
   // padding-left: 20px;
+}
+.ranking-buffer {
+  height: 100%;
+  width: 10px;
+  background-color: rgba(244, 244, 244, 1);
 }
 
 .ranking-name {
   // background-color: blue;
-  width: calc(100% - 204px);
+  // border-top: 1px solid rgba(255, 255, 255, 0.33);
+  // border-left: 1px solid rgba(255, 255, 255, 0.33);
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: calc(100% - 235px);
   padding-top: 2px;
   font-size: 32px;
-  padding-right: 24px;
+  text-align: left;
+  line-height: 30px;
+  padding-left: 15px;
 }
 
 .ranking-power {
   // background-color: green;
-  width: 150px;
+  // border-top: 1px solid rgba(255, 255, 255, 0.33);
+  // border-right: 1px solid rgba(0, 0, 0, 0.67);
+  // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
+  height: 100%;
+  width: 155px;
   font-size: 64px;
-  padding-right: 25px;
-  padding-bottom: 3px;
-  text-align: right;
+  padding-top: 3px;
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  text-align: right !important;
+}
+
+.champ-4 {
+  width: calc((100% - 45px) / 4);
+  float: left;
+}
+.champ-2 {
+  width: calc((100% - 15px) / 2);
+  float: left;
+}
+.champ-1 {
+  width: 100%;
+  float: left;
+}
+.champ-box {
+  color: rgba(244, 244, 244, 1);
+  display: block;
+  float: left;
+  height: 270px;
+  // width: 100%;
+  // align-items: center;
+  font-family: "Bahnschrift";
+}
+.champ-picture {
+  // background-color: gold;
+  width: 100%;
+  height: 190px;
+  float: left;
+  position: relative;
+  overflow: hidden;
+}
+.champ-picture img {
+  width: calc(100% + 1px);
+  height: 100%;
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  margin-left: -1px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  object-fit: cover;
+}
+
+.champ-picture-4 {
+}
+.champ-picture-2 {
+  object-position: top;
+}
+.champ-picture-1 {
+  object-position: top;
+}
+
+.champ-picture-tag-container {
+  width: 100%;
+  height: 100%;
+}
+
+.champ-picture-tag {
+  width: 50%;
+  float: left;
+}
+.champ-picture-tag img {
+  width: 100%;
+}
+
+.champ-name {
+  background-color: rgb(0, 0, 0);
+  text-align: center;
+  width: 100%;
+  height: 80px;
+  padding-left: 2px;
+  padding-right: 2px;
+  float: left;
+}
+.champ-buffer {
+  margin-right: 15px;
+  // background: green;
+}
+.championship {
+  font-size: 12px;
+}
+.champion {
+  padding-left: 4px;
+  padding-right: 4px;
+  line-height: 18px;
+}
+
+.champion-power {
+  font-size: 24px !important;
+  margin-top: 4px;
+}
+
+.champion-section-buffer {
+  width: 100%;
+  height: 15px;
+  float: left;
 }

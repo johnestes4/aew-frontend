@@ -17,12 +17,35 @@ export class RankingsService {
   updateRankings() {}
 
   getAllRankings(): Observable<any> {
-    // var response = this.http
-    //   .get('localhost:3000/api/wrestlers/rankings')
-    //   .pipe(map((response) => <any>response));
-    // return response;
-
     return this.http.get('http://localhost:3000/api/wrestlers/rankings').pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+
+  getMaleRankings(): Observable<any> {
+    return this.http
+      .get('http://localhost:3000/api/wrestlers/rankings/male')
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
+  getFemaleRankings(): Observable<any> {
+    return this.http
+      .get('http://localhost:3000/api/wrestlers/rankings/female')
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
+  }
+
+  getTeamRankings(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/teams/rankings/male').pipe(
       map((res) => {
         return res;
       })
