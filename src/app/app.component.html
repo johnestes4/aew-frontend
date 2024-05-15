@@ -5,6 +5,9 @@
       <div class="nav-text">AEW MOCKUP</div>
     </div>
   </nav>
+  <div id="loading-blackout" *ngIf="this.loading">
+    <div><h1>Recalculating...</h1></div>
+  </div>
   <div id="app-container">
     <router-outlet></router-outlet>
   </div>

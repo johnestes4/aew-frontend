@@ -167,3 +167,11 @@ body {
   height: 15px;
   float: left;
 }
+
+.refresh-button {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top: 0px;
+}

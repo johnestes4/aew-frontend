@@ -62,7 +62,15 @@
           [(ngModel)]="this.activeWres.male"
         />
       </div>
-      <div class="wres-trait col-md-4 col-sm-6"><p>ALIASES</p></div>
+      <div class="wres-trait col-md-4 col-sm-6">
+        <p>ALL ELITE</p>
+        <input
+          type="checkbox"
+          name=""
+          id=""
+          [(ngModel)]="this.activeWres.allElite"
+        />
+      </div>
       <span style="height: 20px"></span>
       <div class="col-sm-10 offset-sm-1">
         <button (click)="saveChanges(this.wresIndex)">SAVE CHANGES</button>

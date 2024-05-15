@@ -52,5 +52,13 @@ export class RankingsService {
     );
   }
 
+  refreshRankings(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/rankings/calc').pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+
   examplePostReq() {}
 }

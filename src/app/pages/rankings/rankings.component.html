@@ -1,5 +1,10 @@
 <div id="rankings-container">
-  <div class="row">
+  <div>
+    <button class="refresh-button" (click)="refreshRankings()">
+      REFRESH RANKINGS
+    </button>
+  </div>
+  <div class="row" style="margin-top: 25px">
     <div
       class="rankings-list col-md-4"
       *ngFor="let ranking of rankings; let i = index"

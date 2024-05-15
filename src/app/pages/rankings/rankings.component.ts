@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { RankingsService } from '../../services/rankings.service';
 import { TitleService } from '../../services/title.service';
 import { Observable } from 'rxjs';
+import { AppComponent } from 'src/app/app.component';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-rankings',
@@ -12,7 +15,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./rankings.component.scss'],
 })
 export class RankingsComponent implements OnInit {
-  private loading: boolean = false;
+  public loading: boolean = false;
   public rankings: any[] = [];
   public champNames = new Map();
   public champions: any[] = [
@@ -58,8 +61,15 @@ export class RankingsComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private rankingsService: RankingsService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    private appComponent: AppComponent,
+    private cdRef: ChangeDetectorRef
   ) {
+    this.initialize();
+    console.log(this.rankings);
+  }
+
+  initialize() {
     this.titleService.getAEWTitles().subscribe({
       next: (res: any) => {
         for (let title of res.data.titles) {
@@ -94,6 +104,8 @@ export class RankingsComponent implements OnInit {
                 this.rankingsService.getTeamRankings().subscribe({
                   next: (res: any) => {
                     this.rankings.push(this.removeChampions(res.data.team, 1));
+                    // this.cdRef.detectChanges();
+                    this.appComponent.loadingFalse();
                   },
                 });
               },
@@ -102,13 +114,21 @@ export class RankingsComponent implements OnInit {
         });
       },
     });
+  }
 
-    console.log(this.rankings);
+  refreshRankings() {
+    this.appComponent.loadingTrue();
+    this.rankingsService.refreshRankings().subscribe({
+      next: (res: any) => {
+        this.rankings = [];
+        this.initialize();
+      },
+    });
   }
 
   removeChampions(arr: any[], champCount: number) {
     var arrOut = [];
-    for (let w of arr.slice(0, 99 + champCount)) {
+    for (let w of arr.slice(0, 50 + champCount)) {
       var matchFound = false;
       for (let arr of this.champions) {
         for (let localTitle of arr) {
