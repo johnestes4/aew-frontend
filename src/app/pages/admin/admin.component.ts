@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Wrestler } from '../../classes/wrestler';
+import { Show } from '../../classes/show';
+import { Match } from '../../classes/match';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WrestlerService } from '../../services/wrestlers.service';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 
 @Component({
@@ -22,6 +24,29 @@ export class AdminComponent implements OnInit {
   activeTab: number = 0;
   wresIndex: number = -1;
   nameEditOn: boolean = false;
+  newShow: Show = new Show();
+  tvTypes: any[] = [
+    {
+      name: 'Dynamite',
+      day: 3,
+      ppv: false,
+    },
+    {
+      name: 'Rampage',
+      day: 5,
+      ppv: false,
+    },
+    {
+      name: 'Collision',
+      day: 6,
+      ppv: false,
+    },
+    {
+      name: 'Battle of the Belts',
+      day: 6,
+      ppv: false,
+    },
+  ];
   constructor(
     private http: HttpClient,
     private wrestlerService: WrestlerService,
@@ -30,6 +55,7 @@ export class AdminComponent implements OnInit {
     this.initialize();
   }
   initialize() {
+    this.addMatch();
     this.appComponent.loadingTrue();
     this.wrestlerService.getAllWrestlers().subscribe({
       next: (res: any) => {
@@ -74,5 +100,19 @@ export class AdminComponent implements OnInit {
   discardChanges() {
     this.activeWres = JSON.parse(JSON.stringify(this.activeWresUnchanged));
   }
+  addMatch() {
+    this.newShow.matches.push(new Match());
+  }
+  addWinner(match: Match) {
+    match.winner.push(new Wrestler());
+  }
+  addLoserSide(match: Match) {
+    match.loser.push([new Wrestler()]);
+  }
+  addLoser(side: any[]) {
+    console.log('fuck');
+    side.push(new Wrestler());
+  }
+  // searchWrestler(element) {}
   ngOnInit(): void {}
 }

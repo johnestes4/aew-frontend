@@ -19,7 +19,7 @@ body {
   // border-left: 1px solid rgba(255, 255, 255, 0.33);
   // border-right: 1px solid rgba(0, 0, 0, 0.67);
   // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
-  padding-top: 5px;
+  // padding-top: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,6 +28,7 @@ body {
   height: 80px;
   width: 70px;
   font-size: 62px;
+  padding-bottom: 2px;
   text-align: center;
   // letter-spacing: -5px;
   // padding-right: 16px;
@@ -63,7 +64,7 @@ body {
   height: 100%;
   width: 155px;
   font-size: 64px;
-  padding-top: 3px;
+  padding-bottom: 3px;
   padding-right: 15px;
   display: flex;
   align-items: center;

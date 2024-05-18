@@ -1,89 +1,192 @@
 <div *ngIf="!this.appComponent.loading">
   <div class="tab-change">
-    <button class="col-sm-4" (click)="this.activeTab = 0">WRES EDIT</button>
-    <button class="col-sm-4" (click)="this.activeTab = 1">SCRIPTS</button>
+    <button class="col-sm-4" (click)="this.activeTab = 0">NEW SHOW</button>
+    <button class="col-sm-4" (click)="this.activeTab = 1">WRES EDIT</button>
+    <button class="col-sm-4" (click)="this.activeTab = 2">SCRIPTS</button>
   </div>
-  <div class="" *ngIf="this.activeTab == 0">
-    <div class="wres-list-box">
-      <div *ngIf="this.wrestlers.length > 0">
-        <span *ngFor="let wres of this.wrestlers; let i = index">
-          <div class="wres-list-item" (click)="setActiveWres(wres, i)">
-            {{ wres.name }} <img src="{{ wres.img }}" alt="" />
-          </div>
-          <div
-            *ngIf="i < this.wrestlers.length - 1"
-            class="wres-list-pad"
-          ></div>
-        </span>
-      </div>
-    </div>
-    <div class="active-wres">
-      <div class="row" *ngIf="this.activeWres.name">
-        <div class="col-sm-12">
-          <h1>
-            <span *ngIf="!this.nameEditOn">{{ this.activeWres.name }}</span>
-            <input
-              *ngIf="this.nameEditOn"
-              type="text"
-              [(ngModel)]="this.activeWres.name"
-            />
-            <p>
-              <button *ngIf="!this.nameEditOn" (click)="this.nameEditOn = true">
-                edit
-              </button>
-              <button *ngIf="this.nameEditOn" (click)="this.nameEditOn = false">
-                done
-              </button>
-            </p>
-          </h1>
-          <p>{{ this.activeWres._id }}</p>
+  <div id="panel-container">
+    <div class="" id="new-show-panel" *ngIf="this.activeTab == 0">
+      <h3>ADD A SHOW</h3>
+      <div class="row">
+        <div class="new-show-input col-sm-4 offset-sm-4">
+          <input
+            type="text"
+            [(ngModel)]="this.newShow.name"
+            placeholder="Show Name"
+          />
         </div>
-        <div class="wres-trait col-md-4 col-sm-6">
-          <p>ALIASES</p>
-          <div style="float: left; width: calc(100%-22px)">
-            <div
-              *ngFor="
-                let a of this.activeWres.aliases;
-                let i = index;
-                trackBy: trackByFn
-              "
-            >
-              <input type="text" [(ngModel)]="this.activeWres.aliases[i]" />
-
-              <button class="alias-button" (click)="removeAlias(i)">-</button>
+      </div>
+      <div class="row">
+        <div class="col-sm-4">
+          <span>LOCATION</span>
+          <input
+            type="text"
+            [(ngModel)]="this.newShow.location"
+            placeholder="Venue, City, State"
+          />
+        </div>
+        <div class="col-sm-4">
+          <span>DATE</span>
+          <input type="date" [(ngModel)]="this.newShow.date" />
+        </div>
+        <div class="col-sm-4">
+          <span>PPV</span>
+          <input type="checkbox" />
+        </div>
+      </div>
+      <div class="row">
+        <h3>MATCHES <button (click)="addMatch()">+</button></h3>
+        <div id="match-box">
+          <div
+            class="match"
+            *ngFor="let match of this.newShow.matches; let i = index"
+          >
+            <p>MATCH {{ i + 1 }}</p>
+            <div class="row">
+              <div class="col-sm-5">
+                <p>COMPETITORS</p>
+                <div id="winners-box">
+                  <p>WINNERS</p>
+                  <div class="wres-box">
+                    <div *ngFor="let box of match.winner">
+                      <select name="Wrestler" id="">
+                        <option
+                          value=""
+                          *ngFor="let w of this.wrestlers"
+                          [value]="w.name"
+                        >
+                          {{ w.name }}
+                        </option></select
+                      ><button>-</button>
+                    </div>
+                  </div>
+                  <button (click)="addWinner(match)">+</button>
+                </div>
+                <div id="losers-box">
+                  <p>LOSERS</p>
+                  <div class="wres-box">
+                    <div
+                      *ngFor="let side of match.loser; let loserI = index"
+                      style="
+                        border-top: 1px solid black;
+                        border-bottom: 1px solid black;
+                      "
+                    >
+                      <p>SIDE {{ loserI + 1 }}</p>
+                      <div *ngFor="let box of side">
+                        <select name="Wrestler" id="">
+                          <option
+                            value=""
+                            *ngFor="let w of this.wrestlers"
+                            [value]="w.name"
+                          >
+                            {{ w.name }}
+                          </option></select
+                        ><button>-</button>
+                      </div>
+                      <button (click)="addLoser(side)">+</button>
+                    </div>
+                  </div>
+                  <button (click)="addLoserSide(match)">+</button>
+                </div>
+              </div>
+              <div class="col-sm-7"></div>
             </div>
           </div>
-          <div style="float: left; margin-left: 40px">
-            <button class="alias-button" (click)="addAlias()">+</button>
+        </div>
+      </div>
+      <div class="row"></div>
+    </div>
+    <div class="" *ngIf="this.activeTab == 1">
+      <div class="wres-list-box">
+        <div *ngIf="this.wrestlers.length > 0">
+          <span *ngFor="let wres of this.wrestlers; let i = index">
+            <div class="wres-list-item" (click)="setActiveWres(wres, i)">
+              {{ wres.name }} <img src="{{ wres.img }}" alt="" />
+            </div>
+            <div
+              *ngIf="i < this.wrestlers.length - 1"
+              class="wres-list-pad"
+            ></div>
+          </span>
+        </div>
+      </div>
+      <div class="active-wres">
+        <div class="row" *ngIf="this.activeWres.name">
+          <div class="col-sm-12">
+            <h1>
+              <span *ngIf="!this.nameEditOn">{{ this.activeWres.name }}</span>
+              <input
+                *ngIf="this.nameEditOn"
+                type="text"
+                [(ngModel)]="this.activeWres.name"
+              />
+              <p>
+                <button
+                  *ngIf="!this.nameEditOn"
+                  (click)="this.nameEditOn = true"
+                >
+                  edit
+                </button>
+                <button
+                  *ngIf="this.nameEditOn"
+                  (click)="this.nameEditOn = false"
+                >
+                  done
+                </button>
+              </p>
+            </h1>
+            <p>{{ this.activeWres._id }}</p>
           </div>
-        </div>
-        <div class="wres-trait col-md-4 col-sm-6">
-          <p>MALE</p>
-          <input
-            type="checkbox"
-            name=""
-            id=""
-            [(ngModel)]="this.activeWres.male"
-          />
-        </div>
-        <div class="wres-trait col-md-4 col-sm-6">
-          <p>ALL ELITE</p>
-          <input
-            type="checkbox"
-            name=""
-            id=""
-            [(ngModel)]="this.activeWres.allElite"
-          />
-        </div>
-        <span style="height: 20px"></span>
-        <div class="col-sm-10 offset-sm-1">
-          <button (click)="saveChanges(this.wresIndex)">SAVE CHANGES</button>
-          <button (click)="discardChanges()">DISCARD CHANGES</button>
+          <div class="wres-trait col-md-4 col-sm-6">
+            <p>ALIASES</p>
+            <div style="float: left; width: calc(100%-22px)">
+              <div
+                *ngFor="
+                  let a of this.activeWres.aliases;
+                  let i = index;
+                  trackBy: trackByFn
+                "
+              >
+                <input type="text" [(ngModel)]="this.activeWres.aliases[i]" />
+
+                <button class="alias-button" (click)="removeAlias(i)">-</button>
+              </div>
+            </div>
+            <div style="float: left; margin-left: 40px">
+              <button class="alias-button" (click)="addAlias()">+</button>
+            </div>
+          </div>
+          <div class="wres-trait col-md-4 col-sm-6">
+            <p>MALE</p>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              [(ngModel)]="this.activeWres.male"
+            />
+          </div>
+          <div class="wres-trait col-md-4 col-sm-6">
+            <p>ALL ELITE</p>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              [(ngModel)]="this.activeWres.allElite"
+            />
+          </div>
+          <span style="height: 20px"></span>
+          <div class="col-sm-10 offset-sm-1">
+            <button (click)="saveChanges(this.wresIndex)">SAVE CHANGES</button>
+            <button (click)="discardChanges()">DISCARD CHANGES</button>
+          </div>
         </div>
       </div>
     </div>
+    <div *ngIf="this.activeTab == 2">
+      <p>COMING SOON</p>
+    </div>
   </div>
-  <div *ngIf="this.activeTab == 1"></div>
 
   <!-- <H1>CREATE A WRESTLER</H1>
       <hr />

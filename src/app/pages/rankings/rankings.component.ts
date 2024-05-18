@@ -95,13 +95,13 @@ export class RankingsComponent implements OnInit {
             }
           }
         }
-        this.rankingsService.getMaleRankings().subscribe({
+        this.rankingsService.getMaleRankings(10).subscribe({
           next: (res: any) => {
             this.rankings.push(this.removeChampions(res.data.wrestlers, 4));
-            this.rankingsService.getFemaleRankings().subscribe({
+            this.rankingsService.getFemaleRankings(10).subscribe({
               next: (res: any) => {
                 this.rankings.push(this.removeChampions(res.data.wrestlers, 2));
-                this.rankingsService.getTeamRankings().subscribe({
+                this.rankingsService.getTeamRankings(10).subscribe({
                   next: (res: any) => {
                     this.rankings.push(this.removeChampions(res.data.team, 1));
                     // this.cdRef.detectChanges();
@@ -128,7 +128,7 @@ export class RankingsComponent implements OnInit {
 
   removeChampions(arr: any[], champCount: number) {
     var arrOut = [];
-    for (let w of arr.slice(0, 50 + champCount)) {
+    for (let w of arr.slice(0, 10 + champCount)) {
       var matchFound = false;
       for (let arr of this.champions) {
         for (let localTitle of arr) {

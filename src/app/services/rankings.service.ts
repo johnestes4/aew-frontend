@@ -24,7 +24,7 @@ export class RankingsService {
     );
   }
 
-  getMaleRankings(): Observable<any> {
+  getMaleRankings(max: number): Observable<any> {
     return this.http
       .get('http://localhost:3000/api/wrestlers/rankings/male')
       .pipe(
@@ -34,7 +34,7 @@ export class RankingsService {
       );
   }
 
-  getFemaleRankings(): Observable<any> {
+  getFemaleRankings(max: number): Observable<any> {
     return this.http
       .get('http://localhost:3000/api/wrestlers/rankings/female')
       .pipe(
@@ -44,7 +44,7 @@ export class RankingsService {
       );
   }
 
-  getTeamRankings(): Observable<any> {
+  getTeamRankings(max: number): Observable<any> {
     return this.http.get('http://localhost:3000/api/teams/rankings/male').pipe(
       map((res) => {
         return res;
