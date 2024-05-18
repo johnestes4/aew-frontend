@@ -1,12 +1,21 @@
 <body>
   <nav class="fixed-top">
-    <div class="nav-icon">
-      <img src="./assets/img/logo.png" alt="logo" />
-      <div class="nav-text">AEW MOCKUP</div>
+    <div id="nav-content">
+      <div class="nav-icon">
+        <img src="./assets/img/logo.png" alt="logo" />
+        <div class="nav-block" [routerLink]="'rankings'">RANKINGS</div>
+        <div
+          class="nav-block"
+          [routerLink]="'wrestler/660f3be6b82fe231045495fa'"
+        >
+          PROFILE
+        </div>
+        <div class="nav-block nav-block-r" [routerLink]="'admin'">ADMIN</div>
+      </div>
     </div>
   </nav>
   <div id="loading-blackout" *ngIf="this.loading">
-    <div><h1>Recalculating...</h1></div>
+    <div><h1>Loading...</h1></div>
   </div>
   <div id="app-container">
     <router-outlet></router-outlet>

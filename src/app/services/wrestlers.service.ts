@@ -17,6 +17,14 @@ export class WrestlerService {
 
   updateRankings() {}
 
+  getWrestler(id: string): Observable<any> {
+    return this.http.get('http://localhost:3000/api/' + 'wrestlers/' + id).pipe(
+      map((responseData) => {
+        return responseData;
+      })
+    );
+  }
+
   getAllWrestlers(): Observable<any> {
     return this.http.get('http://localhost:3000/api/' + 'wrestlers').pipe(
       map((responseData) => {

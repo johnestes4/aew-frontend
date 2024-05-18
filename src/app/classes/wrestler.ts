@@ -10,8 +10,10 @@ export class Wrestler {
   moves: string[];
   team: string;
   faction: string;
-  titles: [];
-  boosts: [];
+  titles: any[];
+  boosts: any[];
+  profileImage: string;
+  alumni: boolean;
 
   constructor() {
     this._id = '0';
@@ -27,5 +29,7 @@ export class Wrestler {
     this.faction = '';
     this.titles = [];
     this.boosts = [];
+    this.profileImage = '';
+    this.alumni = false;
   }
 }

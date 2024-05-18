@@ -4,16 +4,18 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WresprofileComponent } from './pages/wresprofile/wresprofile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
+import { RouterLinkDirective } from './directives/routerlink.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WresprofileComponent,
+    ProfileComponent,
     AdminComponent,
     RankingsComponent,
+    RouterLinkDirective,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

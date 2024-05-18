@@ -1,0 +1,36 @@
+<div id="profile-container">
+  <div class="profile-portrait big-side">
+    <img src="{{ this.currentWres.profileImage }}" alt="" />
+    <div class="profile-name-box">
+      <h1>{{ this.currentWres.name }}</h1>
+    </div>
+  </div>
+  <div class="profile-info big-side">
+    <div class="info-text">
+      <h1>{{ this.currentWres.power }}</h1>
+      <p class="profile-nickname">"THE KENTUCKY GENTLEMAN"</p>
+      <div class="profile-team">
+        <p><span>TEAM</span>BEST FRIENDS</p>
+        <div class="team-pics">
+          <div class="team-img-box">
+            <img src="../../assets/img/profiles/greg1.png" alt="" />
+          </div>
+          <div class="team-img-box">
+            <img src="../../assets/img/profiles/orange1.png" alt="" />
+          </div>
+          <div class="team-img-box">
+            <img src="../../assets/img/profiles/kris1.png" alt="" />
+          </div>
+        </div>
+      </div>
+      <div class="record-box">
+        <p>RECORD</p>
+        <div class="record-item" *ngFor="let match of this.currentWres.boosts">
+          {{ match.win }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div></div>

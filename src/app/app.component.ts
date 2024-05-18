@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router, NavigationEnd, UrlTree } from '@angular/router';
 import { AppService } from './services/app.service';
 
 @Component({
@@ -7,14 +8,16 @@ import { AppService } from './services/app.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'aew-mockup';
-  public loading = false;
-
+  public loading: Boolean = false;
+  constructor(private router: Router) {}
   public loadingTrue() {
     this.loading = true;
   }
 
   public loadingFalse() {
     this.loading = false;
+  }
+  public goTo(destination: string) {
+    this.router.navigateByUrl(this.router.parseUrl(destination));
   }
 }

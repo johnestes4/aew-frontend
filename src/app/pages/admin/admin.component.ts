@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { WrestlerService } from '../../services/wrestlers.service';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-admin',
@@ -23,11 +24,17 @@ export class AdminComponent implements OnInit {
   nameEditOn: boolean = false;
   constructor(
     private http: HttpClient,
-    private wrestlerService: WrestlerService
+    private wrestlerService: WrestlerService,
+    public appComponent: AppComponent
   ) {
+    this.initialize();
+  }
+  initialize() {
+    this.appComponent.loadingTrue();
     this.wrestlerService.getAllWrestlers().subscribe({
       next: (res: any) => {
         this.wrestlers = res.data.wrestlers;
+        this.appComponent.loadingFalse();
       },
     });
   }
