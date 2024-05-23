@@ -48,54 +48,164 @@
                 <div id="winners-box">
                   <p>WINNERS</p>
                   <div class="wres-box">
-                    <div *ngFor="let box of match.winner">
-                      <select name="Wrestler" id="">
+                    <div *ngFor="let box of match.winner; let winI = index">
+                      <select
+                        name="Wrestler"
+                        id=""
+                        *ngIf="this.whichNew[i][0][winI] == null"
+                        [(ngModel)]="match.winner[winI]"
+                      >
                         <option
-                          value=""
-                          *ngFor="let w of this.wrestlers"
+                          *ngFor="let w of this.wrestlers; let wI = index"
                           [value]="w.name"
                         >
                           {{ w.name }}
-                        </option></select
-                      ><button>-</button>
+                        </option>
+                      </select>
+                      <input
+                        type="text"
+                        *ngIf="this.whichNew[i][0][winI] !== null"
+                        [(ngModel)]="this.whichNew[i][0][winI]"
+                      />
+                      <button
+                        *ngIf="this.whichNew[i][0][winI] == null"
+                        (click)="toggleWrestler(i, 0, winI)"
+                      >
+                        NEW</button
+                      ><button
+                        *ngIf="this.whichNew[i][0][winI] !== null"
+                        (click)="toggleWrestler(i, 0, winI)"
+                      >
+                        EXISTING</button
+                      ><button (click)="removeWinner(i, match, winI)">-</button>
                     </div>
                   </div>
-                  <button (click)="addWinner(match)">+</button>
+                  <button (click)="addWinner(i, match)">+</button>
                 </div>
                 <div id="losers-box">
                   <p>LOSERS</p>
                   <div class="wres-box">
                     <div
-                      *ngFor="let side of match.loser; let loserI = index"
+                      *ngFor="let side of match.loser; let loserSideI = index"
                       style="
                         border-top: 1px solid black;
                         border-bottom: 1px solid black;
                       "
                     >
-                      <p>SIDE {{ loserI + 1 }}</p>
-                      <div *ngFor="let box of side">
-                        <select name="Wrestler" id="">
+                      <p>
+                        SIDE {{ loserSideI + 1 }}
+                        <button (click)="removeLoserSide(i, match, loserSideI)">
+                          -
+                        </button>
+                      </p>
+                      <div *ngFor="let box of side; let loserI = index">
+                        <select
+                          name="Wrestler"
+                          id=""
+                          *ngIf="
+                            this.whichNew[i][1][loserSideI][loserI] == null
+                          "
+                          [(ngModel)]="match.loser[loserSideI][loserI]"
+                        >
                           <option
                             value=""
                             *ngFor="let w of this.wrestlers"
                             [value]="w.name"
                           >
                             {{ w.name }}
-                          </option></select
-                        ><button>-</button>
+                          </option>
+                        </select>
+                        <input
+                          type="text"
+                          *ngIf="
+                            this.whichNew[i][1][loserSideI][loserI] !== null
+                          "
+                          [(ngModel)]="this.whichNew[i][1][loserSideI][loserI]"
+                        />
+                        <button
+                          *ngIf="
+                            this.whichNew[i][1][loserSideI][loserI] == null
+                          "
+                          (click)="toggleWrestler(i, 1, loserI, loserSideI)"
+                        >
+                          NEW</button
+                        ><button
+                          *ngIf="
+                            this.whichNew[i][1][loserSideI][loserI] !== null
+                          "
+                          (click)="toggleWrestler(i, 1, loserI, loserSideI)"
+                        >
+                          EXISTING
+                        </button>
+
+                        <button
+                          (click)="removeLoser(i, match, loserSideI, loserI)"
+                        >
+                          -
+                        </button>
                       </div>
-                      <button (click)="addLoser(side)">+</button>
+                      <button (click)="addLoser(i, side, loserSideI)">+</button>
                     </div>
                   </div>
-                  <button (click)="addLoserSide(match)">+</button>
+
+                  <button (click)="addLoserSide(i, match)">+</button>
                 </div>
               </div>
-              <div class="col-sm-7"></div>
+              <div class="col-sm-7">
+                <div class="col-sm-12">
+                  <p>TITLE</p>
+                  <select name="" id="" [(ngModel)]="match.title[0]">
+                    <option value="">NONE</option>
+                    <option
+                      [value]="title._id"
+                      *ngFor="let title of this.titles"
+                    >
+                      {{ title.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <p>TIME</p>
+                    <input type="text" [(ngModel)]="match.time" />
+                  </div>
+                  <div class="col-sm-2">
+                    <p>PRESHOW?</p>
+                    <input type="checkbox" [(ngModel)]="match.preshow" />
+                  </div>
+                  <div class="col-sm-2">
+                    <p>MAIN?</p>
+                    <input type="checkbox" [(ngModel)]="match.mainEvent" />
+                  </div>
+                  <div class="col-sm-4">
+                    <p>FINISH</p>
+                    <select name="" id="" [(ngModel)]="match.result">
+                      <option value="Pinfall">Pinfall</option>
+                      <option value="Submission">Submission</option>
+                      <option value="DQ">DQ</option>
+                      <option value="TKO">TKO</option>
+                      <option value="Knock Out">Knock Out</option>
+                      <option value="Count Out">Count Out</option>
+                      <option value="Over The Top Rope">
+                        Over The Top Rope
+                      </option>
+                      <option value="No Contest">No Contest</option>
+                      <option value="Time Limit Draw">Time Limit Draw</option>
+                      <option value="Double Count Out Draw">
+                        Double Count Out Draw
+                      </option>
+                      <option value="Double DQ Draw">Double DQ Draw</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="row"></div>
+      <div class="row">
+        <button (click)="saveShow(this.newShow)">SAVE</button>
+      </div>
     </div>
     <div class="" *ngIf="this.activeTab == 1">
       <div class="wres-list-box">

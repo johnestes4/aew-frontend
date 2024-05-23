@@ -90,12 +90,13 @@ h1 input {
   background-color: rgba(244, 244, 244, 1);
   width: 80%;
   margin-left: 10%;
-  height: 400px;
+  height: 600px;
   overflow-y: scroll;
 }
 #panel-container {
   // background-color: green;
-  height: 600px;
+  min-height: 700px;
+  padding-bottom: 20px;
   width: 100%;
 }
 
@@ -115,14 +116,14 @@ h1 input {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid black;
-  min-height: 60px;
+  min-height: 50px;
 }
 
 #losers-box {
   width: 100%;
   background-color: rgba(0, 0, 0, 0.1);
   border: 1px solid black;
-  min-height: 60px;
+  min-height: 50px;
 }
 
 .wres-box {

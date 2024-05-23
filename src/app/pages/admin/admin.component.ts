@@ -7,9 +7,12 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WrestlerService } from '../../services/wrestlers.service';
+import { ShowService } from '../../services/show.service';
+import { TitleService } from '../../services/title.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin',
@@ -17,8 +20,10 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./admin.component.scss'],
 })
 export class AdminComponent implements OnInit {
+  titles = [] as any;
   blankWrestler = new Wrestler();
   wrestlers = [] as Wrestler[];
+  newWrestlers = [] as Wrestler[];
   activeWres = new Wrestler();
   activeWresUnchanged = new Wrestler();
   activeTab: number = 0;
@@ -47,19 +52,31 @@ export class AdminComponent implements OnInit {
       ppv: false,
     },
   ];
+  //this needs to be one more array deep - gotta have a set for each match on the show
+  whichNew: any[] = [];
   constructor(
     private http: HttpClient,
     private wrestlerService: WrestlerService,
-    public appComponent: AppComponent
+    private showService: ShowService,
+    public appComponent: AppComponent,
+    private titleService: TitleService
   ) {
     this.initialize();
   }
   initialize() {
-    this.addMatch();
     this.appComponent.loadingTrue();
     this.wrestlerService.getAllWrestlers().subscribe({
       next: (res: any) => {
         this.wrestlers = res.data.wrestlers;
+        this.titleService.getAEWTitles().subscribe({
+          next: (res: any) => {
+            this.titles = res.data.titles;
+            // this.wrestlerService.getAllWrestlers().subscribe({
+            //   next: (res: any) => {},
+            // });
+          },
+        });
+        this.addMatch();
         this.appComponent.loadingFalse();
       },
     });
@@ -101,17 +118,76 @@ export class AdminComponent implements OnInit {
     this.activeWres = JSON.parse(JSON.stringify(this.activeWresUnchanged));
   }
   addMatch() {
-    this.newShow.matches.push(new Match());
+    var newMatch: Match = new Match();
+    newMatch.winner[0] = this.wrestlers[0].name;
+    newMatch.loser[0][0] = this.wrestlers[0].name;
+    this.whichNew.push([[null], [[null]]]);
+    this.newShow.matches.push(newMatch);
   }
-  addWinner(match: Match) {
-    match.winner.push(new Wrestler());
+  addWinner(matchI: number, match: Match) {
+    match.winner.push(this.wrestlers[0].name);
+    this.whichNew[matchI][0].push(null);
   }
-  addLoserSide(match: Match) {
-    match.loser.push([new Wrestler()]);
+  removeWinner(matchI: number, match: any, wI: number) {
+    match.winner.splice(wI, 1);
+    this.whichNew[matchI][0].splice(wI, 1);
   }
-  addLoser(side: any[]) {
-    console.log('fuck');
-    side.push(new Wrestler());
+  addLoserSide(matchI: number, match: Match) {
+    match.loser.push([this.wrestlers[0].name]);
+    this.whichNew[matchI][1].push([null]);
+  }
+  removeLoserSide(matchI: number, match: any, sideI: number) {
+    match.loser.splice(sideI, 1);
+    this.whichNew[matchI][1].splice(sideI, 1);
+  }
+  addLoser(matchI: number, side: any[], loserI: number) {
+    side.push(this.wrestlers[0].name);
+    this.whichNew[matchI][1][loserI].push(null);
+  }
+  removeLoser(matchI: number, match: any, sideI: number, wI: number) {
+    match.loser[sideI].splice(wI, 1);
+    this.whichNew[matchI][1][sideI].splice(wI, 1);
+  }
+
+  toggleWrestler(matchI: number, arrI: number, wresI: number, sideI?: number) {
+    console.log(`${matchI} | ${arrI} | ${wresI} | ${sideI}`);
+    console.log(this.whichNew);
+    if (sideI !== undefined) {
+      if (this.whichNew[matchI][arrI][sideI][wresI] === null) {
+        this.whichNew[matchI][arrI][sideI][wresI] = '';
+      } else {
+        this.whichNew[matchI][arrI][sideI][wresI] = null;
+      }
+    } else {
+      if (this.whichNew[matchI][arrI][wresI] === null) {
+        this.whichNew[matchI][arrI][wresI] = '';
+      } else {
+        this.whichNew[matchI][arrI][wresI] = null;
+      }
+    }
+  }
+
+  saveShow(show: Show) {
+    for (let i = 0; i < show.matches.length; i++) {
+      for (let i2 = 0; i2 < this.whichNew[i][0].length; i2++) {
+        if (this.whichNew[i][0][i2] !== null) {
+          show.matches[i].winner[i2] = this.whichNew[i][0][i2];
+        }
+      }
+      for (let i2 = 0; i2 < this.whichNew[i][1].length; i2++) {
+        //i-1-i2 is a side. the i3 is the wrestler within the side. keep it straight somehow
+        for (let i3 = 0; i3 < this.whichNew[i][1][i2].length; i3++) {
+          if (this.whichNew[i][1][i2][i3] !== null) {
+            show.matches[i].loser[i2][i3] = this.whichNew[i][1][i2][i3];
+          }
+        }
+      }
+    }
+    this.showService.createShow(show).subscribe({
+      next: (res: any) => {
+        console.log(res);
+      },
+    });
   }
   // searchWrestler(element) {}
   ngOnInit(): void {}
