@@ -8,6 +8,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
 import { RouterLinkDirective } from './directives/routerlink.directive';
+import { TonyComponent } from './pages/tony/tony.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RouterLinkDirective } from './directives/routerlink.directive';
     AdminComponent,
     RankingsComponent,
     RouterLinkDirective,
+    TonyComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],

@@ -58,6 +58,24 @@ export class RankingsComponent implements OnInit {
       },
     ],
   ];
+  public date: String = '';
+  public months = [
+    '',
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  public whichTab: Number = 0;
+  public infoRead: boolean = false;
   constructor(
     private http: HttpClient,
     private rankingsService: RankingsService,
@@ -70,7 +88,7 @@ export class RankingsComponent implements OnInit {
   }
 
   initialize() {
-    this.titleService.getAEWTitles().subscribe({
+    this.rankingsService.getAllRankings().subscribe({
       next: (res: any) => {
         for (let title of res.data.titles) {
           for (let arr of this.champions) {
@@ -95,33 +113,18 @@ export class RankingsComponent implements OnInit {
             }
           }
         }
-        this.rankingsService.getMaleRankings(10).subscribe({
-          next: (res: any) => {
-            this.rankings.push(this.removeChampions(res.data.wrestlers, 4));
-            this.rankingsService.getFemaleRankings(10).subscribe({
-              next: (res: any) => {
-                this.rankings.push(this.removeChampions(res.data.wrestlers, 2));
-                this.rankingsService.getTeamRankings(10).subscribe({
-                  next: (res: any) => {
-                    this.rankings.push(this.removeChampions(res.data.team, 1));
-                    // this.cdRef.detectChanges();
-                    this.appComponent.loadingFalse();
-                  },
-                });
-              },
-            });
-          },
-        });
-      },
-    });
-  }
-
-  refreshRankings() {
-    this.appComponent.loadingTrue();
-    this.rankingsService.refreshRankings().subscribe({
-      next: (res: any) => {
-        this.rankings = [];
-        this.initialize();
+        var date = new Date(res.data.date);
+        this.date =
+          this.months[date.getMonth()] +
+          ' ' +
+          date.getUTCDate() +
+          ', ' +
+          date.getFullYear();
+        this.rankings.push(this.removeChampions(res.data.male, 4));
+        this.rankings.push(this.removeChampions(res.data.female, 2));
+        this.rankings.push(this.removeChampions(res.data.tag, 1));
+        console.log(this.rankings);
+        this.appComponent.loadingFalse();
       },
     });
   }

@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WrestlerService } from '../../services/wrestlers.service';
+import { RankingsService } from '../../services/rankings.service';
 import { ShowService } from '../../services/show.service';
 import { TitleService } from '../../services/title.service';
 import { NgModule } from '@angular/core';
@@ -58,6 +59,7 @@ export class AdminComponent implements OnInit {
     private http: HttpClient,
     private wrestlerService: WrestlerService,
     private showService: ShowService,
+    private rankingsService: RankingsService,
     public appComponent: AppComponent,
     private titleService: TitleService
   ) {
@@ -189,6 +191,16 @@ export class AdminComponent implements OnInit {
       },
     });
   }
+
+  refreshRankings() {
+    this.appComponent.loadingTrue();
+    this.rankingsService.refreshRankings().subscribe({
+      next: (res: any) => {
+        console.log('Rankings Updated');
+      },
+    });
+  }
+
   // searchWrestler(element) {}
   ngOnInit(): void {}
 }

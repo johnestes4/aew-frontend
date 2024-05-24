@@ -9,7 +9,19 @@ import { AppService } from './services/app.service';
 })
 export class AppComponent {
   public loading: Boolean = false;
-  constructor(private router: Router) {}
+  public infoRead: boolean = false;
+
+  constructor(private router: Router) {
+    if (localStorage.getItem('infoRead') == 'true') {
+      this.infoRead = true;
+    }
+  }
+
+  iAccept(which: boolean) {
+    localStorage.setItem('infoRead', 'true');
+    this.infoRead = which;
+  }
+
   public loadingTrue() {
     this.loading = true;
   }

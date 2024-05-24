@@ -1,7 +1,58 @@
 <body>
+  <div id="info-box" *ngIf="!this.infoRead">
+    <p>
+      Elite Power Rankings is a fan project not affiliated with or endorsed by
+      All Elite Wrestling.
+    </p>
+    <p>
+      Power levels are calculated based on a modified
+      <a href="https://en.wikipedia.org/wiki/Elo_rating_system"
+        >Elo rating system</a
+      >, with additional modifiers for winning and losing streaks, and a decay
+      system where a match's contribution to a power level decreases over time.
+    </p>
+    <p>
+      Elite Power Rankings is in beta, and the power calculation is constantly
+      being updated. Power levels may shift frequently inbetween shows.
+    </p>
+    <p>
+      New shows are added manually as they happen. I will do my best to keep the
+      rankings up to date.
+    </p>
+    <p>
+      If you have questions or encounter bugs, you can reach me on Twitter
+      <a
+        href="https://x.com/JohnDudebro"
+        target="_blank"
+        rel="noopener noreferrer"
+        >@JohnDudebro.</a
+      >
+    </p>
+    <p>
+      If you enjoy Elite Power Rankings, you can
+      <a
+        href="https://ko-fi.com/johndudebro"
+        target="_blank"
+        rel="noopener noreferrer"
+        >leave me a tip on Ko-fi.</a
+      >
+    </p>
+    <p>
+      If you are Tony Khan,
+      <a routerLink="/messagefortony">click here for a special message.</a> Do
+      not read the special message if you are not Tony Khan.
+    </p>
+    <p>
+      Click the button below to confirm you have read these notes, and if you
+      promise not to get mad at me if you don't like the rankings.
+    </p>
+    <button (click)="iAccept(true)">Accept</button>
+  </div>
+  <div id="grayout" *ngIf="!this.infoRead"></div>
   <nav class="fixed-top">
     <div id="nav-content">
-      <div class="nav-icon">
+      <div class="nav-name">Elite Power Rankings</div>
+      <!-- <div class="nav-icon">
         <img src="./assets/img/logo.png" alt="logo" />
         <div class="nav-block" [routerLink]="'rankings'">RANKINGS</div>
         <div
@@ -11,6 +62,23 @@
           PROFILE
         </div>
         <div class="nav-block nav-block-r" [routerLink]="'admin'">ADMIN</div>
+      </div> -->
+      <div id="nav-right">
+        <a
+          href="https://x.com/JohnDudebro"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="nav-block">@JohnDudebro</div>
+        </a>
+        <a
+          href="https://ko-fi.com/johndudebro"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="nav-block">Ko-fi</div>
+        </a>
+        <div class="nav-block nav-block-r" (click)="iAccept(false)">About</div>
       </div>
     </div>
   </nav>

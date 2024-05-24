@@ -1,14 +1,13 @@
 <div id="rankings-container">
-  <div>
-    <button class="refresh-button" (click)="refreshRankings()">
-      RECALCULATE RANKINGS
-    </button>
-  </div>
-  <div class="row" style="margin-top: 25px">
+  <div class="ranking-date">Rankings For {{ this.date }}</div>
+  <div class="row" style="margin-top: 15px">
     <div
-      class="rankings-list col-md-4"
+      class="rankings-list col-lg-4"
       *ngFor="let ranking of rankings; let i = index"
     >
+      <div class="ranking-desc" *ngIf="i == 0">MEN'S DIVISION</div>
+      <div class="ranking-desc" *ngIf="i == 1">WOMEN'S DIVISION</div>
+      <div class="ranking-desc" *ngIf="i == 2">TAG TEAM DIVISION</div>
       <div
         class="champion-section"
         *ngFor="let belt of champions[i]; let i2 = index"

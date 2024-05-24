@@ -15,6 +15,7 @@ body {
 }
 
 .ranking-number {
+  padding-top: 3px;
   // border-top: 1px solid rgba(255, 255, 255, 0.33);
   // border-left: 1px solid rgba(255, 255, 255, 0.33);
   // border-right: 1px solid rgba(0, 0, 0, 0.67);
@@ -28,7 +29,7 @@ body {
   height: 80px;
   width: 70px;
   font-size: 62px;
-  padding-bottom: 2px;
+  // padding-bottom: 2px;
   text-align: center;
   // letter-spacing: -5px;
   // padding-right: 16px;
@@ -41,6 +42,7 @@ body {
 }
 
 .ranking-name {
+  padding-top: 1px;
   // background-color: blue;
   // border-top: 1px solid rgba(255, 255, 255, 0.33);
   // border-left: 1px solid rgba(255, 255, 255, 0.33);
@@ -49,7 +51,7 @@ body {
   display: flex;
   align-items: center;
   width: calc(100% - 235px);
-  padding-top: 2px;
+  // padding-top: 2px;
   font-size: 32px;
   text-align: left;
   line-height: 30px;
@@ -57,6 +59,7 @@ body {
 }
 
 .ranking-power {
+  padding-top: 3px;
   // background-color: green;
   // border-top: 1px solid rgba(255, 255, 255, 0.33);
   // border-right: 1px solid rgba(0, 0, 0, 0.67);
@@ -64,7 +67,7 @@ body {
   height: 100%;
   width: 155px;
   font-size: 64px;
-  padding-bottom: 3px;
+  line-height: 30px;
   padding-right: 15px;
   display: flex;
   align-items: center;
@@ -168,10 +171,90 @@ body {
   float: left;
 }
 
-.refresh-button {
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
-  top: 0px;
+.ranking-date {
+  height: 60px;
+  background-color: black;
+  color: rgba(244, 244, 244, 1);
+  text-align: center;
+  line-height: 60px;
+  font-size: 36px;
+}
+
+.ranking-desc {
+  background-color: black;
+  text-align: center;
+  height: 32px;
+  line-height: 30px;
+  font-size: 24px;
+  color: rgba(244, 244, 244, 1);
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 1440px) {
+  .champion {
+    font-size: 16px;
+  }
+  .ranking-name {
+    // background-color: green;
+    font-size: 30px;
+    line-height: 25px;
+    width: calc(100% - 195px);
+    padding-left: 10px;
+  }
+  .ranking-power {
+    // background-color: red;
+    width: 125px;
+    font-size: 52px;
+    padding-right: 10px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .ranking-name {
+    // background-color: green;
+    line-height: 20px;
+    font-size: 24px;
+    width: calc(100% - 170px);
+    padding-left: 5px;
+  }
+  .ranking-power {
+    padding-top: 2px;
+    // background-color: red;
+    width: 110px;
+    font-size: 46px;
+    padding-right: 5px;
+  }
+}
+@media screen and (max-width: 990px) {
+}
+
+@media screen and (max-width: 600px) {
+  .ranking-date {
+    font-size: 24px;
+  }
+  .championship {
+    font-size: 10px;
+  }
+  .champion {
+    font-size: 14px;
+  }
+  .ranking-name {
+    font-size: 24px !important;
+    width: calc(100% - 117px);
+  }
+  .ranking-power {
+    width: 75px;
+    font-size: 28px;
+  }
+  .ranking-number {
+    font-size: 36px;
+    width: 42px;
+    height: 50px;
+  }
+  .rankings-item {
+    height: 50px;
+    display: flex;
+    // align-items: center;
+    background-color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+  }
 }

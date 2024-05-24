@@ -294,7 +294,11 @@
       </div>
     </div>
     <div *ngIf="this.activeTab == 2">
-      <p>COMING SOON</p>
+      <div>
+        <button class="refresh-button" (click)="refreshRankings()">
+          RECALCULATE RANKINGS
+        </button>
+      </div>
     </div>
   </div>
 

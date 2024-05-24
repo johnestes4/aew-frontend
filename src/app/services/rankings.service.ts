@@ -17,7 +17,7 @@ export class RankingsService {
   updateRankings() {}
 
   getAllRankings(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/wrestlers/rankings').pipe(
+    return this.http.get('http://localhost:3000/api/rankings').pipe(
       map((res) => {
         return res;
       })
