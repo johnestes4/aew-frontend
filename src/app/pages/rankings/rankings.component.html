@@ -72,7 +72,53 @@
         <div class="ranking-number">{{ i + 1 }}</div>
         <div class="ranking-buffer"></div>
         <div class="ranking-name">{{ item.name.toUpperCase() }}</div>
-        <div class="ranking-power">{{ item.power.toFixed(0) }}</div>
+        <div class="ranking-power">
+          <div
+            class="arrow"
+            *ngIf="
+              this.getDateGap(
+                item.powerHistory[item.powerHistory.length - 1].date
+              ) == 0 &&
+              item.powerHistory[item.powerHistory.length - 1].place < i + 1
+            "
+          >
+            <div class="arrow-popup" style="background-color: green">
+              <p>
+                UP from #{{
+                  item.powerHistory[item.powerHistory.length - 1].place
+                }}, power
+                {{ item.powerHistory[item.powerHistory.length - 1].power }}
+              </p>
+            </div>
+            <img src="./assets/icon/arrowup.png" alt="" />
+          </div>
+          <div
+            class="arrow"
+            *ngIf="
+              this.getDateGap(
+                item.powerHistory[item.powerHistory.length - 1].date
+              ) == 0 &&
+              item.powerHistory[item.powerHistory.length - 1].place > i + 1
+            "
+          >
+            <div
+              class="arrow-popup"
+              style="background-color: red; color: white"
+            >
+              <p>
+                DOWN from #{{
+                  item.powerHistory[item.powerHistory.length - 1].place
+                }}, power
+                {{ item.powerHistory[item.powerHistory.length - 1].power }}
+              </p>
+            </div>
+            <img src="./assets/icon/arrowdown.png" alt="" />
+          </div>
+          {{ item.power.toFixed(0) }}
+        </div>
+        <!-- <div class="ranking-power">
+          {{ item.powerHistory[item.powerHistory.length - 1].place  }}
+        </div> -->
       </div>
     </div>
   </div>

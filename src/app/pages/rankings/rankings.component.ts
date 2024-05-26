@@ -58,6 +58,7 @@ export class RankingsComponent implements OnInit {
       },
     ],
   ];
+  public dateObj: Date = new Date();
   public date: String = '';
   public months = [
     '',
@@ -114,6 +115,7 @@ export class RankingsComponent implements OnInit {
           }
         }
         var date = new Date(res.data.date);
+        this.dateObj = date;
         this.date =
           this.months[date.getMonth()] +
           ' ' +
@@ -127,6 +129,14 @@ export class RankingsComponent implements OnInit {
         this.appComponent.loadingFalse();
       },
     });
+  }
+
+  getDateGap(date: Date) {
+    var date2 = new Date(date);
+    console.log(date2);
+    const diffTime = this.dateObj.getTime() - date2.getTime();
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
   }
 
   removeChampions(arr: any[], champCount: number) {

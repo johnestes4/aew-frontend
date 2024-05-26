@@ -187,6 +187,8 @@ export class AdminComponent implements OnInit {
     }
     this.showService.createShow(show).subscribe({
       next: (res: any) => {
+        this.newShow = new Show();
+        this.addMatch();
         console.log(res);
       },
     });
@@ -197,6 +199,7 @@ export class AdminComponent implements OnInit {
     this.rankingsService.refreshRankings().subscribe({
       next: (res: any) => {
         console.log('Rankings Updated');
+        this.appComponent.loadingFalse();
       },
     });
   }

@@ -7,6 +7,7 @@ export class Wrestler {
   allElite: boolean;
   male: boolean;
   power: Number;
+  powerHistory: any[];
   moves: string[];
   team: string;
   faction: string;
@@ -24,6 +25,7 @@ export class Wrestler {
     this.allElite = false;
     this.male = true;
     this.power = 0;
+    this.powerHistory = [];
     this.moves = [];
     this.team = '';
     this.faction = '';
