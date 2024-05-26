@@ -33,9 +33,14 @@ export class WrestlerService {
     );
   }
 
-  updateWrestler(wres: Wrestler): Observable<any> {
+  updateWrestler(authBlock: any, wres: Wrestler): Observable<any> {
+    var dataSend = {
+      password: authBlock.password,
+      url: authBlock.url,
+      wres: wres,
+    };
     return this.http
-      .patch('http://localhost:3000/api/' + 'wrestlers/' + wres._id, wres)
+      .patch('http://localhost:3000/api/' + 'wrestlers/' + wres._id, dataSend)
       .pipe(
         map((responseData) => {
           return responseData;

@@ -10,10 +10,12 @@ import { WrestlerService } from '../../services/wrestlers.service';
 import { RankingsService } from '../../services/rankings.service';
 import { ShowService } from '../../services/show.service';
 import { TitleService } from '../../services/title.service';
+import { AuthService } from '../../services/auth.service';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -31,6 +33,12 @@ export class AdminComponent implements OnInit {
   wresIndex: number = -1;
   nameEditOn: boolean = false;
   newShow: Show = new Show();
+  authBlock = {
+    password: '',
+    url: window.location.href,
+  };
+  authorized: boolean = false;
+  passRejected: boolean = false;
   tvTypes: any[] = [
     {
       name: 'Dynamite',
@@ -53,20 +61,26 @@ export class AdminComponent implements OnInit {
       ppv: false,
     },
   ];
+
   //this needs to be one more array deep - gotta have a set for each match on the show
   whichNew: any[] = [];
   constructor(
+    private router: Router,
     private http: HttpClient,
     private wrestlerService: WrestlerService,
     private showService: ShowService,
+    private authService: AuthService,
     private rankingsService: RankingsService,
     public appComponent: AppComponent,
     private titleService: TitleService
   ) {
-    this.initialize();
+    this.login();
+    // this.initialize();
   }
+  ngOnInit(): void {}
   initialize() {
     this.appComponent.loadingTrue();
+
     this.wrestlerService.getAllWrestlers().subscribe({
       next: (res: any) => {
         this.wrestlers = res.data.wrestlers;
@@ -85,6 +99,18 @@ export class AdminComponent implements OnInit {
   }
   trackByFn(index: any, item: any) {
     return index;
+  }
+  login() {
+    this.authService.checkAuth(this.authBlock).subscribe({
+      next: (res: any) => {
+        if (res.data == true) {
+          this.authorized = true;
+          this.initialize();
+        } else {
+          this.passRejected = true;
+        }
+      },
+    });
   }
   saveWrestler() {
     var newWrestler = new Wrestler();
@@ -110,11 +136,13 @@ export class AdminComponent implements OnInit {
   }
   saveChanges(i: number) {
     // console.log(this.activeWres.aliases)
-    this.wrestlerService.updateWrestler(this.activeWres).subscribe({
-      next: (res: any) => {
-        this.wrestlers[i] = JSON.parse(JSON.stringify(this.activeWres));
-      },
-    });
+    this.wrestlerService
+      .updateWrestler(this.authBlock, this.activeWres)
+      .subscribe({
+        next: (res: any) => {
+          this.wrestlers[i] = JSON.parse(JSON.stringify(this.activeWres));
+        },
+      });
   }
   discardChanges() {
     this.activeWres = JSON.parse(JSON.stringify(this.activeWresUnchanged));
@@ -185,7 +213,7 @@ export class AdminComponent implements OnInit {
         }
       }
     }
-    this.showService.createShow(show).subscribe({
+    this.showService.createShow(this.authBlock, show).subscribe({
       next: (res: any) => {
         this.newShow = new Show();
         this.addMatch();
@@ -196,7 +224,7 @@ export class AdminComponent implements OnInit {
 
   refreshRankings() {
     this.appComponent.loadingTrue();
-    this.rankingsService.refreshRankings().subscribe({
+    this.rankingsService.refreshRankings(this.authBlock).subscribe({
       next: (res: any) => {
         console.log('Rankings Updated');
         this.appComponent.loadingFalse();
@@ -205,5 +233,4 @@ export class AdminComponent implements OnInit {
   }
 
   // searchWrestler(element) {}
-  ngOnInit(): void {}
 }

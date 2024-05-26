@@ -52,12 +52,14 @@ export class RankingsService {
     );
   }
 
-  refreshRankings(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/rankings/calc').pipe(
-      map((res) => {
-        return res;
-      })
-    );
+  refreshRankings(authBlock: any): Observable<any> {
+    return this.http
+      .post('http://localhost:3000/api/rankings/calc', authBlock)
+      .pipe(
+        map((res) => {
+          return res;
+        })
+      );
   }
 
   examplePostReq() {}
