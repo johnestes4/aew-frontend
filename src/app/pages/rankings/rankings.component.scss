@@ -16,11 +16,6 @@ body {
 
 .ranking-number {
   padding-top: 3px;
-  // border-top: 1px solid rgba(255, 255, 255, 0.33);
-  // border-left: 1px solid rgba(255, 255, 255, 0.33);
-  // border-right: 1px solid rgba(0, 0, 0, 0.67);
-  // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
-  // padding-top: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,9 +26,6 @@ body {
   font-size: 62px;
   // padding-bottom: 2px;
   text-align: center;
-  // letter-spacing: -5px;
-  // padding-right: 16px;
-  // padding-left: 20px;
 }
 .ranking-buffer {
   height: 100%;
@@ -43,10 +35,6 @@ body {
 
 .ranking-name {
   padding-top: 2px;
-  // background-color: blue;
-  // border-top: 1px solid rgba(255, 255, 255, 0.33);
-  // border-left: 1px solid rgba(255, 255, 255, 0.33);
-  // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
   height: 100%;
   display: flex;
   align-items: center;
@@ -60,10 +48,6 @@ body {
 
 .ranking-power {
   padding-top: 3px;
-  // background-color: blue;
-  // border-top: 1px solid rgba(255, 255, 255, 0.33);
-  // border-right: 1px solid rgba(0, 0, 0, 0.67);
-  // border-bottom: 1px solid rgba(0, 0, 0, 0.67);
   height: 100%;
   width: 225px;
   font-size: 64px;
@@ -165,8 +149,6 @@ body {
   object-fit: cover;
 }
 
-.champ-picture-4 {
-}
 .champ-picture-2 {
   object-position: top;
 }
