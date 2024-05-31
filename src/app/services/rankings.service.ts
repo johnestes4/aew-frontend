@@ -17,7 +17,7 @@ export class RankingsService {
   updateRankings() {}
 
   getAllRankings(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/rankings').pipe(
+    return this.http.get(environment.apiUrl + 'rankings').pipe(
       map((res) => {
         return res;
       })
@@ -25,27 +25,23 @@ export class RankingsService {
   }
 
   getMaleRankings(max: number): Observable<any> {
-    return this.http
-      .get('http://localhost:3000/api/wrestlers/rankings/male')
-      .pipe(
-        map((res) => {
-          return res;
-        })
-      );
+    return this.http.get(environment.apiUrl + 'wrestlers/rankings/male').pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
   getFemaleRankings(max: number): Observable<any> {
-    return this.http
-      .get('http://localhost:3000/api/wrestlers/rankings/female')
-      .pipe(
-        map((res) => {
-          return res;
-        })
-      );
+    return this.http.get(environment.apiUrl + 'wrestlers/rankings/female').pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
   getTeamRankings(max: number): Observable<any> {
-    return this.http.get('http://localhost:3000/api/teams/rankings/male').pipe(
+    return this.http.get(environment.apiUrl + 'teams/rankings/male').pipe(
       map((res) => {
         return res;
       })
@@ -53,13 +49,11 @@ export class RankingsService {
   }
 
   refreshRankings(authBlock: any): Observable<any> {
-    return this.http
-      .post('http://localhost:3000/api/rankings/calc', authBlock)
-      .pipe(
-        map((res) => {
-          return res;
-        })
-      );
+    return this.http.post(environment.apiUrl + 'rankings/calc', authBlock).pipe(
+      map((res) => {
+        return res;
+      })
+    );
   }
 
   examplePostReq() {}

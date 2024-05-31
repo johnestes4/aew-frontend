@@ -1,7 +1,8 @@
-const express = require('express');
-const path = require('path');
-const http = require('http');
-const https = require('https');
+const express = require("express");
+const path = require("path");
+const http = require("http");
+const https = require("https");
+// const port = environment.PORT || 80;
 // var fs = require('fs');
 // const bodyParser = require('body-parser');
 // var forceSsl = require('express-force-ssl');
@@ -13,21 +14,21 @@ const https = require('https');
 // }
 var app = express();
 // app.use(forceSsl);
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, "dist/aew-frontend")));
 // app.get('*', forceSsl, function (req, res) {
 //   res.sendFile(path.join(__dirname, 'dist/index.html'));
 // });
-app.get('*', function (req, res) {
-  res.sendFile(path.join(__dirname, 'dist/index.html'));
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "dist/aew-frontend/index.html"));
 });
 
-app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, "dist/aew-frontend")));
 // app.get('*', forceSsl, function (req, res) {
 //   res.sendFile(path.join(__dirname, 'dist/index.html'));
 // });
 
 http.createServer(app).listen(80, function () {
- console.log('HTTP running on 80')
+  console.log("HTTP running on 80");
 });
 
 // https.createServer(options, app).listen(443, function () {

@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   constructor(private http: HttpClient) {}
   checkAuth(authBlock: any): Observable<any> {
-    return this.http.post('http://localhost:3000/api/auth', authBlock).pipe(
+    return this.http.post(environment.apiUrl + 'auth', authBlock).pipe(
       map((res) => {
         return res;
       })

@@ -17,7 +17,7 @@ export class TitleService {
   updateTitles() {}
 
   getAllTitles(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/titles').pipe(
+    return this.http.get(environment.apiUrl + 'titles').pipe(
       map((res) => {
         return res;
       })
@@ -25,7 +25,7 @@ export class TitleService {
   }
 
   getAEWTitles(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/titles?promotion=AEW').pipe(
+    return this.http.get(environment.apiUrl + 'titles?promotion=AEW').pipe(
       map((res) => {
         return res;
       })

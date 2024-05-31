@@ -22,12 +22,10 @@ export class ShowService {
       show: show,
     };
 
-    return this.http
-      .post('http://localhost:3000/api/' + 'shows/new', dataSend)
-      .pipe(
-        map((responseData) => {
-          return responseData;
-        })
-      );
+    return this.http.post(environment.apiUrl + 'shows/new', dataSend).pipe(
+      map((responseData) => {
+        return responseData;
+      })
+    );
   }
 }

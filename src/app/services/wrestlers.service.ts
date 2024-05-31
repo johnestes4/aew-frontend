@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Wrestler } from '../classes/wrestler';
+
 // import { Rankings } from './rankings.model' //use this eventually if you make an explicit model for the rankings
 // import { Observable } from 'rxjs/Observable'
 
@@ -18,7 +19,7 @@ export class WrestlerService {
   updateRankings() {}
 
   getWrestler(id: string): Observable<any> {
-    return this.http.get('http://localhost:3000/api/' + 'wrestlers/' + id).pipe(
+    return this.http.get(environment.apiUrl + 'wrestlers/' + id).pipe(
       map((responseData) => {
         return responseData;
       })
@@ -26,7 +27,7 @@ export class WrestlerService {
   }
 
   getAllWrestlers(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/' + 'wrestlers').pipe(
+    return this.http.get(environment.apiUrl + 'wrestlers').pipe(
       map((responseData) => {
         return responseData;
       })
@@ -40,7 +41,7 @@ export class WrestlerService {
       wres: wres,
     };
     return this.http
-      .patch('http://localhost:3000/api/' + 'wrestlers/' + wres._id, dataSend)
+      .patch(environment.apiUrl + 'wrestlers/' + wres._id, dataSend)
       .pipe(
         map((responseData) => {
           return responseData;
@@ -49,13 +50,11 @@ export class WrestlerService {
   }
 
   getRankings(): Observable<any> {
-    return this.http
-      .get('http://localhost:3000/api/' + 'wrestlers/rankings')
-      .pipe(
-        map((responseData) => {
-          return responseData;
-        })
-      );
+    return this.http.get(environment.apiUrl + 'wrestlers/rankings').pipe(
+      map((responseData) => {
+        return responseData;
+      })
+    );
   }
 
   examplePostReq() {}
