@@ -21,7 +21,12 @@
             'champ-buffer': i2 < champions[i].length - 1
           }"
         >
-          <div class="champ-picture">
+          <div
+            class="champ-picture"
+            [ngClass]="{
+              'champ-picture-tall': champions[i].length < 4
+            }"
+          >
             <img
               *ngIf="!belt.championTeam"
               [src]="belt.champion.profileImage"
@@ -50,9 +55,34 @@
               </div>
             </div>
           </div>
-          <div class="champ-name">
+          <div
+            class="champ-name"
+            [ngClass]="{
+              'champ-name-small': champions[i].length < 4
+            }"
+          >
             <div class="championship">{{ belt.shortName.toUpperCase() }}</div>
-            <div class="champion" *ngIf="!belt.championTeam">
+            <div
+              class="champion"
+              *ngIf="
+                !belt.championTeam &&
+                belt.champion.name.split(' ').length > 1 &&
+                champions[i].length == 4
+              "
+            >
+              {{ belt.champion.name.split(" ")[0] }}<br />
+              {{ belt.champion.name.split(" ")[1] }}
+
+              <div class="champion-power">{{ belt.champion.power }}</div>
+            </div>
+            <div
+              class="champion"
+              *ngIf="
+                !belt.championTeam &&
+                (belt.champion.name.split(' ').length == 1 ||
+                  champions[i].length < 4)
+              "
+            >
               {{ belt.champion.name }}
               <div class="champion-power">{{ belt.champion.power }}</div>
             </div>
@@ -78,16 +108,16 @@
             *ngIf="
               this.getDateGap(
                 item.powerHistory[item.powerHistory.length - 1].date
-              ) == 0 &&
-              item.powerHistory[item.powerHistory.length - 1].place < i + 1
+              ) <= 7 &&
+              item.powerHistory[item.powerHistory.length - 2].place > i + 1
             "
           >
             <div class="arrow-popup" style="background-color: green">
               <p>
                 UP from #{{
-                  item.powerHistory[item.powerHistory.length - 1].place
+                  item.powerHistory[item.powerHistory.length - 2].place
                 }}, power
-                {{ item.powerHistory[item.powerHistory.length - 1].power }}
+                {{ item.powerHistory[item.powerHistory.length - 2].power }}
               </p>
             </div>
             <img src="./assets/icon/arrowup.png" alt="" />
@@ -97,8 +127,8 @@
             *ngIf="
               this.getDateGap(
                 item.powerHistory[item.powerHistory.length - 1].date
-              ) == 0 &&
-              item.powerHistory[item.powerHistory.length - 1].place > i + 1
+              ) <= 7 &&
+              item.powerHistory[item.powerHistory.length - 2].place < i + 1
             "
           >
             <div
@@ -107,9 +137,9 @@
             >
               <p>
                 DOWN from #{{
-                  item.powerHistory[item.powerHistory.length - 1].place
+                  item.powerHistory[item.powerHistory.length - 2].place
                 }}, power
-                {{ item.powerHistory[item.powerHistory.length - 1].power }}
+                {{ item.powerHistory[item.powerHistory.length - 2].power }}
               </p>
             </div>
             <img src="./assets/icon/arrowdown.png" alt="" />

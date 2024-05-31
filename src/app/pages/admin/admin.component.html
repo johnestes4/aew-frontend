@@ -17,6 +17,16 @@
     <button class="col-sm-4" (click)="this.activeTab = 1">WRES EDIT</button>
     <button class="col-sm-4" (click)="this.activeTab = 2">SCRIPTS</button>
   </div>
+  <div id="newshow-confirm" *ngIf="this.confirmPopup">
+    <h4>Is This Right?</h4>
+    <p>
+      {{ this.newShow.name }} | {{ this.newShow.date }} |
+      {{ this.newShow.location }}
+    </p>
+    <div *ngFor="let match of this.newShow.matches; let i = index">
+      {{ i + 1 }}:
+    </div>
+  </div>
   <div id="panel-container">
     <div class="" id="new-show-panel" *ngIf="this.activeTab == 0">
       <h3>ADD A SHOW</h3>
@@ -48,18 +58,18 @@
         </div>
       </div>
       <div class="row">
-        <h3>MATCHES <button (click)="addMatch()">+</button></h3>
+        <h4>MATCHES <button (click)="addMatch()">+</button></h4>
         <div id="match-box">
           <div
             class="match"
             *ngFor="let match of this.newShow.matches; let i = index"
           >
-            <p>MATCH {{ i + 1 }}</p>
+            MATCH {{ i + 1 }}
             <div class="row">
               <div class="col-sm-5">
-                <p>COMPETITORS</p>
+                COMPETITORS
                 <div id="winners-box">
-                  <p>WINNERS</p>
+                  WINNERS
                   <div class="wres-box">
                     <div *ngFor="let box of match.winner; let winI = index">
                       <select
@@ -76,6 +86,7 @@
                         </option>
                       </select>
                       <input
+                        class="match-input"
                         type="text"
                         *ngIf="this.whichNew[i][0][winI] !== null"
                         [(ngModel)]="this.whichNew[i][0][winI]"
@@ -96,7 +107,7 @@
                   <button (click)="addWinner(i, match)">+</button>
                 </div>
                 <div id="losers-box">
-                  <p>LOSERS</p>
+                  LOSERS
                   <div class="wres-box">
                     <div
                       *ngFor="let side of match.loser; let loserSideI = index"
@@ -105,12 +116,10 @@
                         border-bottom: 1px solid black;
                       "
                     >
-                      <p>
-                        SIDE {{ loserSideI + 1 }}
-                        <button (click)="removeLoserSide(i, match, loserSideI)">
-                          -
-                        </button>
-                      </p>
+                      SIDE {{ loserSideI + 1 }}
+                      <button (click)="removeLoserSide(i, match, loserSideI)">
+                        -
+                      </button>
                       <div *ngFor="let box of side; let loserI = index">
                         <select
                           name="Wrestler"
@@ -129,6 +138,7 @@
                           </option>
                         </select>
                         <input
+                          class="match-input"
                           type="text"
                           *ngIf="
                             this.whichNew[i][1][loserSideI][loserI] !== null
@@ -183,8 +193,12 @@
                     <input type="text" [(ngModel)]="match.time" />
                   </div>
                   <div class="col-sm-2">
-                    <p>PRESHOW?</p>
-                    <input type="checkbox" [(ngModel)]="match.preshow" />
+                    <p>PRESHOW</p>
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="match.preshow"
+                      style="margin: auto"
+                    />
                   </div>
                   <div class="col-sm-2">
                     <p>MAIN?</p>

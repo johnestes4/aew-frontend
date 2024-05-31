@@ -95,6 +95,16 @@ export class RankingsComponent implements OnInit {
           for (let arr of this.champions) {
             for (let localTitle of arr) {
               var matchFound = false;
+              if (
+                title.currentChampion.length < 1 &&
+                !title.currentChampionTeam
+              ) {
+                title.currentChampion.push({
+                  name: 'Vacant',
+                  power: 0,
+                  profileImage: './assets/img/profile/vacant.jpg',
+                });
+              }
               if (localTitle.name == title.name) {
                 if (
                   localTitle.shortName.includes('Tag') ||
@@ -102,8 +112,22 @@ export class RankingsComponent implements OnInit {
                 ) {
                   localTitle.champion = title.currentChampion;
                   localTitle.championTeam = title.currentChampionTeam;
+                  console.log(localTitle.championTeam.name);
+                  console.log(localTitle.champion[0].profileImage);
                 } else {
                   localTitle.champion = title.currentChampion[0];
+                  localTitle.champion.profileImage =
+                    localTitle.champion.profileImage.slice(
+                      0,
+                      localTitle.champion.profileImage.indexOf('.jpg')
+                    ) +
+                    '_' +
+                    localTitle.shortName.toLowerCase() +
+                    localTitle.champion.profileImage.slice(
+                      localTitle.champion.profileImage.indexOf('.jpg')
+                    );
+                  console.log(localTitle.champion.name);
+                  console.log(localTitle.champion.profileImage);
                 }
                 matchFound = true;
                 break;
@@ -133,7 +157,6 @@ export class RankingsComponent implements OnInit {
 
   getDateGap(date: Date) {
     var date2 = new Date(date);
-    console.log(date2);
     const diffTime = this.dateObj.getTime() - date2.getTime();
     const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
@@ -163,7 +186,7 @@ export class RankingsComponent implements OnInit {
         arrOut.push(w);
       }
     }
-    return arrOut;
+    return arrOut.slice(0, 10);
   }
 
   test() {

@@ -42,7 +42,7 @@ body {
 }
 
 .ranking-name {
-  padding-top: 1px;
+  padding-top: 2px;
   // background-color: blue;
   // border-top: 1px solid rgba(255, 255, 255, 0.33);
   // border-left: 1px solid rgba(255, 255, 255, 0.33);
@@ -83,7 +83,7 @@ body {
   position: absolute;
   width: 39px;
   height: 20px;
-  left: 0px;
+  left: -5px;
   // top: 5px;
   // background-color: red;
   top: 50%;
@@ -100,10 +100,13 @@ body {
   line-height: 50px;
   text-align: center;
   align-items: center;
-  width: 230px;
+  min-width: 240px;
+  max-width: auto;
+  // padding-left: 3px;
+  // padding-right: 3px;
   height: 50px;
   top: 50%;
-  left: -220px;
+  right: 20px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
   z-index: 5;
@@ -147,6 +150,9 @@ body {
   position: relative;
   overflow: hidden;
 }
+.champ-picture-tall {
+  height: 208px;
+}
 .champ-picture img {
   width: calc(100% + 1px);
   height: 100%;
@@ -166,6 +172,10 @@ body {
 }
 .champ-picture-1 {
   object-position: top;
+  min-height: 208px;
+}
+.champ-picture-1 img {
+  min-height: 208px;
 }
 
 .champ-picture-tag-container {
@@ -186,9 +196,12 @@ body {
   text-align: center;
   width: 100%;
   height: 80px;
-  padding-left: 2px;
-  padding-right: 2px;
   float: left;
+}
+.champ-name-small {
+  height: 62px;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .champ-buffer {
   margin-right: 15px;

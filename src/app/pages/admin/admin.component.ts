@@ -39,6 +39,7 @@ export class AdminComponent implements OnInit {
   };
   authorized: boolean = false;
   passRejected: boolean = false;
+  confirmPopup: boolean = false;
   tvTypes: any[] = [
     {
       name: 'Dynamite',
@@ -86,7 +87,11 @@ export class AdminComponent implements OnInit {
         this.wrestlers = res.data.wrestlers;
         this.titleService.getAEWTitles().subscribe({
           next: (res: any) => {
-            this.titles = res.data.titles;
+            for (let t of res.data.titles) {
+              if (!t.name.includes('Interim')) {
+                this.titles.push(t);
+              }
+            }
             // this.wrestlerService.getAllWrestlers().subscribe({
             //   next: (res: any) => {},
             // });

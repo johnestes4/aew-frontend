@@ -128,8 +128,25 @@ h1 input {
 
 .wres-box {
   width: 100%;
+  padding: 0px;
   background-color: rgba(255, 255, 255, 0.1);
   position: relative;
+}
+
+.match button {
+  height: 25px;
+  line-height: 25px;
+}
+.match-input {
+  line-height: 25px;
+  width: 250px !important;
+}
+.match input {
+  height: 25px;
+}
+.match select {
+  height: 25px;
+  line-height: 25px;
 }
 
 #login {
@@ -141,5 +158,19 @@ h1 input {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.5));
+}
+
+#newshow-confirm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 98%;
+  height: 820px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 4;
   filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.5));
 }
