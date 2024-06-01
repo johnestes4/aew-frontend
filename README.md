@@ -1,27 +1,13 @@
 # Elite Power Rankings
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+This is the frontend for the Elite Power Rankings project. The backend is at https://github.com/johnestes4/aew-backend.
 
-## Development server
+It's an Angular application that queries the backend API, lightly processes the returned data, and displays the current AEW champions and the top ten ranked for men's, women's, and tag team divisions.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Power levels are determined through science. More specifically, Elo ratings (https://en.wikipedia.org/wiki/Elo_rating_system), modified by win/loss streaks and a decay system that degrades each match's contribution to an overall score over time. As it's currently balanced, the rankings skew heavily towards recent results - as intended - but still allows wrestlers with long histories of winning to more easily maintain a position at the top.
 
-## Code scaffolding
+Right now there's just the main rankings page and an admin page I use to add new shows to the database and edit wrestlers' information.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This is a backend-heavy project, but I'll get around to more frontend features sooner or later - visible win/loss records are high on my list.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+The alpha is currently hosted on https://aew-frontend.onrender.com/. I'm not paying Render yet, so it'll probably take a minute to spin up the back and front ends before it actually lets you see anything. Once I get a domain and feel confident everything's working without bugs I'll upgrade the instances and it'll become more usable.
