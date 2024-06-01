@@ -1,8 +1,0 @@
-initially: something that spits out the rankings in one big list.
-
-next: spit out multiple versions of the rankings over multiple subsequent shows. get a visual sense of how they change over time
-  maybe do the shows around revolution just so you have a good sense of what affected them
-
-use this to feel out how accurate the rankings are, see what effect a tweak to the math happens
-
-you want the top 5 to be accurate, you want there to be a big range of powers, you want the high end to be over 9000 (but maybe not much past 10)
