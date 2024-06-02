@@ -85,7 +85,6 @@ export class RankingsComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {
     this.initialize();
-    console.log(this.rankings);
   }
 
   initialize() {
@@ -112,8 +111,6 @@ export class RankingsComponent implements OnInit {
                 ) {
                   localTitle.champion = title.currentChampion;
                   localTitle.championTeam = title.currentChampionTeam;
-                  console.log(localTitle.championTeam.name);
-                  console.log(localTitle.champion[0].profileImage);
                 } else {
                   localTitle.champion = title.currentChampion[0];
                   localTitle.champion.profileImage =
@@ -126,8 +123,6 @@ export class RankingsComponent implements OnInit {
                     localTitle.champion.profileImage.slice(
                       localTitle.champion.profileImage.indexOf('.jpg')
                     );
-                  console.log(localTitle.champion.name);
-                  console.log(localTitle.champion.profileImage);
                 }
                 matchFound = true;
                 break;
@@ -140,8 +135,9 @@ export class RankingsComponent implements OnInit {
         }
         var date = new Date(res.data.date);
         this.dateObj = date;
+        // console.log(date);
         this.date =
-          this.months[date.getMonth()] +
+          this.months[date.getUTCMonth() + 1] +
           ' ' +
           date.getUTCDate() +
           ', ' +
@@ -149,7 +145,7 @@ export class RankingsComponent implements OnInit {
         this.rankings.push(this.removeChampions(res.data.male, 4));
         this.rankings.push(this.removeChampions(res.data.female, 2));
         this.rankings.push(this.removeChampions(res.data.tag, 1));
-        console.log(this.rankings);
+        // console.log(this.rankings);
         this.appComponent.loadingFalse();
       },
     });

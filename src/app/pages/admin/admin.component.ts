@@ -203,6 +203,7 @@ export class AdminComponent implements OnInit {
   }
 
   saveShow(show: Show) {
+    this.appComponent.loadingTrue();
     for (let i = 0; i < show.matches.length; i++) {
       for (let i2 = 0; i2 < this.whichNew[i][0].length; i2++) {
         if (this.whichNew[i][0][i2] !== null) {
@@ -222,6 +223,7 @@ export class AdminComponent implements OnInit {
       next: (res: any) => {
         this.newShow = new Show();
         this.addMatch();
+        this.appComponent.loadingFalse();
         console.log(res);
       },
     });
