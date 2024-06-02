@@ -1,4 +1,6 @@
-<div *ngIf="!this.appComponent.loading && !this.authorized">
+<div
+  *ngIf="!this.appComponent.loading && !this.authorized && !this.passRejected"
+>
   <div id="login">
     <input
       class="col-sm-10 offset-sm-1"
@@ -8,6 +10,11 @@
       placeholder="Password"
     />
     <button class="col-sm-4 offset-sm-4" (click)="login()">Log In</button>
+  </div>
+</div>
+<div *ngIf="!this.appComponent.loading && this.passRejected">
+  <div id="login">
+    <h1 style="text-align: center; color: white">WRONG</h1>
   </div>
 </div>
 

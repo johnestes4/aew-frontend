@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { secret } from '../../../environments/secret';
 
 @Component({
   selector: 'app-admin',
@@ -36,6 +37,7 @@ export class AdminComponent implements OnInit {
   authBlock = {
     password: '',
     url: window.location.href,
+    secret: secret.secretCode,
   };
   authorized: boolean = false;
   passRejected: boolean = false;
@@ -106,13 +108,16 @@ export class AdminComponent implements OnInit {
     return index;
   }
   login() {
+    // this.authBlock.url = 'No';
     this.authService.checkAuth(this.authBlock).subscribe({
       next: (res: any) => {
         if (res.data == true) {
           this.authorized = true;
           this.initialize();
         } else {
-          this.passRejected = true;
+          if (this.authBlock.password.length > 0) {
+            this.passRejected = true;
+          }
         }
       },
     });

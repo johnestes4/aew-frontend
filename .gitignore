@@ -46,3 +46,4 @@ testem.log
 Thumbs.db
 
 config.env
+src/environments/secret.ts
