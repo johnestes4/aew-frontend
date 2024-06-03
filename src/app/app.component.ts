@@ -10,6 +10,7 @@ import { AppService } from './services/app.service';
 export class AppComponent {
   public loading: Boolean = false;
   public infoRead: boolean = false;
+  public dropdown: Boolean = false;
 
   constructor(private router: Router) {
     if (localStorage.getItem('infoRead') == 'true') {

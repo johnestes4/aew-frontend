@@ -88,6 +88,7 @@ export class RankingsComponent implements OnInit {
   }
 
   initialize() {
+    this.appComponent.loadingTrue();
     this.rankingsService.getAllRankings().subscribe({
       next: (res: any) => {
         for (let title of res.data.titles) {

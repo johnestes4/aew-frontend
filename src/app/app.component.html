@@ -46,8 +46,44 @@
     <button (click)="iAccept(true)">Accept</button>
   </div>
   <div id="grayout" *ngIf="!this.infoRead"></div>
+  <div
+    id="burger-dropdown"
+    [ngClass]="{
+      'burger-dropdown-on': this.dropdown,
+      'burger-dropdown-off': !this.dropdown
+    }"
+  >
+    <a
+      href="https://x.com/JohnDudebro"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="nav-block">&#64;JohnDudebro</div>
+    </a>
+    <a
+      href="https://ko-fi.com/johndudebro"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div class="nav-block">Ko-fi</div>
+    </a>
+    <div class="nav-block nav-block-r" (click)="iAccept(false)">About</div>
+  </div>
+  <div
+    id="burger-exit"
+    *ngIf="this.dropdown"
+    (click)="this.dropdown = false"
+  ></div>
   <nav class="fixed-top">
     <div id="nav-content">
+      <div id="nav-left">
+        <label
+          class="menu-button-container"
+          (click)="this.dropdown = !this.dropdown"
+        >
+          <div class="menu-button"></div>
+        </label>
+      </div>
       <div class="nav-name">Elite Power Rankings</div>
       <!-- <div class="nav-icon">
         <img src="./assets/img/logo.png" alt="logo" />
