@@ -244,6 +244,23 @@ nav {
     min-width: 20px;
   }
 }
+@media screen and (max-width: 400px) {
+  .nav-name {
+    line-height: 40px;
+    font-size: 26px;
+    text-align: center;
+    // font-style: italic;
+  }
+  .menu-button-container {
+    width: 50px;
+  }
+
+  .menu-button,
+  .menu-button::before,
+  .menu-button::after {
+    width: 30px;
+  }
+}
 
 @media screen and (max-width: 750px) {
   #nav-right {
