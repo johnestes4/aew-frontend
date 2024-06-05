@@ -3,28 +3,28 @@
   <div class="row" style="margin-top: 15px">
     <div
       class="rankings-list col-lg-4"
-      *ngFor="let ranking of rankings; let i = index"
+      *ngFor="let ranking of rankings; let colI = index"
     >
-      <div class="ranking-desc" *ngIf="i == 0">MEN'S DIVISION</div>
-      <div class="ranking-desc" *ngIf="i == 1">WOMEN'S DIVISION</div>
-      <div class="ranking-desc" *ngIf="i == 2">TAG TEAM DIVISION</div>
+      <div class="ranking-desc" *ngIf="colI == 0">MEN'S DIVISION</div>
+      <div class="ranking-desc" *ngIf="colI == 1">WOMEN'S DIVISION</div>
+      <div class="ranking-desc" *ngIf="colI == 2">TAG TEAM DIVISION</div>
       <div
         class="champion-section"
-        *ngFor="let belt of champions[i]; let i2 = index"
+        *ngFor="let belt of champions[colI]; let i2 = index"
       >
         <div
           class="champ-box"
           [ngClass]="{
-            'champ-4': champions[i].length == 4,
-            'champ-2': champions[i].length == 2,
-            'champ-1': champions[i].length == 1,
-            'champ-buffer': i2 < champions[i].length - 1
+            'champ-4': champions[colI].length == 4,
+            'champ-2': champions[colI].length == 2,
+            'champ-1': champions[colI].length == 1,
+            'champ-buffer': i2 < champions[colI].length - 1
           }"
         >
           <div
             class="champ-picture"
             [ngClass]="{
-              'champ-picture-tall': champions[i].length < 4
+              'champ-picture-tall': champions[colI].length < 4
             }"
           >
             <img
@@ -32,16 +32,16 @@
               [src]="belt.champion.profileImage"
               alt=""
               [ngClass]="{
-                'champ-picture-4': champions[i].length == 4,
-                'champ-picture-2': champions[i].length == 2,
-                'champ-picture-1': champions[i].length == 1
+                'champ-picture-4': champions[colI].length == 4,
+                'champ-picture-2': champions[colI].length == 2,
+                'champ-picture-1': champions[colI].length == 1
               }"
             />
             <div
               [ngClass]="{
-                'champ-picture-4': champions[i].length == 4,
-                'champ-picture-2': champions[i].length == 2,
-                'champ-picture-1': champions[i].length == 1
+                'champ-picture-4': champions[colI].length == 4,
+                'champ-picture-2': champions[colI].length == 2,
+                'champ-picture-1': champions[colI].length == 1
               }"
               *ngIf="belt.championTeam"
             >
@@ -58,7 +58,7 @@
           <div
             class="champ-name"
             [ngClass]="{
-              'champ-name-small': champions[i].length < 4
+              'champ-name-small': champions[colI].length < 4
             }"
           >
             <div class="championship">{{ belt.shortName.toUpperCase() }}</div>
@@ -67,7 +67,7 @@
               *ngIf="
                 !belt.championTeam &&
                 belt.champion.name.split(' ').length > 1 &&
-                champions[i].length == 4
+                champions[colI].length == 4
               "
             >
               {{ belt.champion.name.split(" ")[0] }}<br />
@@ -80,7 +80,7 @@
               *ngIf="
                 !belt.championTeam &&
                 (belt.champion.name.split(' ').length == 1 ||
-                  champions[i].length < 4)
+                  champions[colI].length < 4)
               "
             >
               {{ belt.champion.name }}
@@ -95,60 +95,184 @@
         <!-- <div class="champ-buffer" *ngIf="i2 < champions[i].length - 1"></div> -->
       </div>
       <div class="champion-section-buffer"></div>
-      <div
-        class="rankings-item col-12"
-        *ngFor="let item of ranking; let i = index"
-      >
-        <div class="ranking-number">{{ i + 1 }}</div>
-        <div class="ranking-buffer"></div>
-        <div class="ranking-name">{{ item.name.toUpperCase() }}</div>
-        <div class="ranking-power">
+      <div *ngFor="let item of ranking; let i = index">
+        <div
+          class="rankings-item col-12"
+          (click)="this.isExpanded[colI][i] = !this.isExpanded[colI][i]"
+        >
+          <div class="ranking-number">{{ i + 1 }}</div>
+          <div class="ranking-buffer"></div>
           <div
-            class="arrow"
-            *ngIf="
-              this.getDateGap(
-                item.powerHistory[item.powerHistory.length - 1].date
-              ) <= 3 &&
-              item.powerHistory[item.powerHistory.length - 2].place > i + 1
-            "
+            class="ranking-name"
+            [ngClass]="{ 'ranking-name-small': item.name.length > 20 }"
           >
-            <div class="arrow-popup" style="background-color: green">
-              <p>
-                UP from #{{
-                  item.powerHistory[item.powerHistory.length - 2].place
-                }}, power
-                {{ item.powerHistory[item.powerHistory.length - 2].power }}
-              </p>
-            </div>
-            <img src="./assets/icon/arrowup.png" alt="" />
+            {{ item.name.toUpperCase() }}
           </div>
-          <div
-            class="arrow"
-            *ngIf="
-              this.getDateGap(
-                item.powerHistory[item.powerHistory.length - 1].date
-              ) <= 3 &&
-              item.powerHistory[item.powerHistory.length - 2].place < i + 1
-            "
-          >
+          <div class="ranking-power">
             <div
-              class="arrow-popup"
-              style="background-color: red; color: white"
+              class="arrow"
+              *ngIf="
+                this.getDateGap(
+                  item.powerHistory[item.powerHistory.length - 1].date
+                ) <= 3 &&
+                item.powerHistory[item.powerHistory.length - 2].place > i + 1
+              "
             >
-              <p>
-                DOWN from #{{
-                  item.powerHistory[item.powerHistory.length - 2].place
-                }}, power
-                {{ item.powerHistory[item.powerHistory.length - 2].power }}
-              </p>
+              <div class="arrow-popup" style="background-color: green">
+                <p>
+                  UP from #{{
+                    item.powerHistory[item.powerHistory.length - 2].place
+                  }}, power
+                  {{ item.powerHistory[item.powerHistory.length - 2].power }}
+                </p>
+              </div>
+              <img src="./assets/icon/arrowup.png" alt="" />
             </div>
-            <img src="./assets/icon/arrowdown.png" alt="" />
+            <div
+              class="arrow"
+              *ngIf="
+                this.getDateGap(
+                  item.powerHistory[item.powerHistory.length - 1].date
+                ) <= 3 &&
+                item.powerHistory[item.powerHistory.length - 2].place < i + 1
+              "
+            >
+              <div
+                class="arrow-popup"
+                style="background-color: red; color: white"
+              >
+                <p>
+                  DOWN from #{{
+                    item.powerHistory[item.powerHistory.length - 2].place
+                  }}, power
+                  {{ item.powerHistory[item.powerHistory.length - 2].power }}
+                </p>
+              </div>
+              <img src="./assets/icon/arrowdown.png" alt="" />
+            </div>
+            {{ item.power.toFixed(0) }}
           </div>
-          {{ item.power.toFixed(0) }}
+          <!-- <div class="ranking-power">
+            {{ item.powerHistory[item.powerHistory.length - 1].place  }}
+          </div> -->
         </div>
-        <!-- <div class="ranking-power">
-          {{ item.powerHistory[item.powerHistory.length - 1].place  }}
-        </div> -->
+        <div
+          class="rankings-item-expanded col-12"
+          [ngClass]="{
+            'expanded-off': !this.isExpanded[colI][i],
+            'expanded-on': this.isExpanded[colI][i]
+          }"
+        >
+          <span
+            [ngClass]="{
+              'expanded-content-off': !this.isExpanded[colI][i],
+              'expanded-content-on': this.isExpanded[colI][i]
+            }"
+          >
+            <div class="expanded-buffer"></div>
+            <div class="expanded-info">
+              <div class="info-img">
+                <img
+                  *ngIf="item.profileImage"
+                  src="{{ item.profileImage }}"
+                  alt=""
+                />
+              </div>
+              <div class="record-box">
+                <div class="row record-tabs">
+                  <div
+                    class="col-6"
+                    [ngClass]="{
+                      'record-tab-active': !this.recordToggles[colI][i],
+                      'record-tab-inactive': this.recordToggles[colI][i]
+                    }"
+                    (click)="this.recordToggles[colI][i] = false"
+                  >
+                    2024
+                  </div>
+                  <div
+                    class="col-6"
+                    [ngClass]="{
+                      'record-tab-active': this.recordToggles[colI][i],
+                      'record-tab-inactive': !this.recordToggles[colI][i]
+                    }"
+                    (click)="this.recordToggles[colI][i] = true"
+                  >
+                    CAREER
+                  </div>
+                </div>
+                <span class="" *ngIf="!this.recordToggles[colI][i]">
+                  <div class="record">
+                    <h1>Overall</h1>
+                    <p>
+                      {{ item.recordYear.overallWins }}-{{
+                        item.recordYear.overallLosses
+                      }}-{{ item.recordYear.overallDraws }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Singles</h1>
+                    <p>
+                      {{ item.recordYear.singlesWins }}-{{
+                        item.recordYear.singlesLosses
+                      }}-{{ item.recordYear.singlesDraws }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Tag</h1>
+                    <p>
+                      {{ item.recordYear.tagWins }}-{{
+                        item.recordYear.tagLosses
+                      }}-{{ item.recordYear.tagDraws }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Trio</h1>
+                    <p>
+                      {{ item.recordYear.trioWins }}-{{
+                        item.recordYear.trioLosses
+                      }}-{{ item.recordYear.trioDraws }}
+                    </p>
+                  </div>
+                </span>
+                <span class="" *ngIf="this.recordToggles[colI][i]">
+                  <div class="record">
+                    <h1>Overall</h1>
+                    <p>
+                      {{ item.record.overallWins }}-{{
+                        item.record.overallLosses
+                      }}-{{ item.record.overallDraws }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Singles</h1>
+                    <p>
+                      {{ item.record.singlesWins }}-{{
+                        item.record.singlesLosses
+                      }}-{{ item.record.singlesDraws }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Tag</h1>
+                    <p>
+                      {{ item.record.tagWins }}-{{ item.record.tagLosses }}-{{
+                        item.record.tagDraws
+                      }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Trio</h1>
+                    <p>
+                      {{ item.record.trioWins }}-{{ item.record.trioLosses }}-{{
+                        item.record.trioDraws
+                      }}
+                    </p>
+                  </div>
+                </span>
+              </div>
+            </div>
+          </span>
+        </div>
       </div>
     </div>
   </div>

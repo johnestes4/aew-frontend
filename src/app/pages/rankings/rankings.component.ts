@@ -77,6 +77,21 @@ export class RankingsComponent implements OnInit {
   ];
   public whichTab: Number = 0;
   public infoRead: boolean = false;
+  public recordToggles = [
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ];
+  public isExpanded = [
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+  ];
+  public championExpanded = [
+    [false, false, false, false],
+    [false, false],
+    [false, false],
+  ];
   constructor(
     private http: HttpClient,
     private rankingsService: RankingsService,
