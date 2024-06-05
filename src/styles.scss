@@ -7,6 +7,11 @@ $prefix: "mo-";
 // Then import Bootstrap
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+@font-face {
+  font-family: bahnschrift;
+  src: url(assets/font/bahnschrift.ttf) format("truetype");
+}
+
 body {
   padding: 0px;
   margin: 0px;
