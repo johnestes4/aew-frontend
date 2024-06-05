@@ -332,7 +332,7 @@ body {
   background-color: black;
   text-align: center;
   height: 32px;
-  line-height: 30px;
+  line-height: 33px;
   font-size: 24px;
   color: rgba(244, 244, 244, 1);
   margin-bottom: 15px;
@@ -499,6 +499,9 @@ body {
 }
 
 @media screen and (max-width: 991px) {
+  .ranking-desc-after {
+    margin-top: 15px;
+  }
   .facts-right {
     font-size: 14px;
   }

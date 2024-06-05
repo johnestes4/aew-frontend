@@ -6,8 +6,12 @@
       *ngFor="let ranking of rankings; let colI = index"
     >
       <div class="ranking-desc" *ngIf="colI == 0">MEN'S DIVISION</div>
-      <div class="ranking-desc" *ngIf="colI == 1">WOMEN'S DIVISION</div>
-      <div class="ranking-desc" *ngIf="colI == 2">TAG TEAM DIVISION</div>
+      <div class="ranking-desc ranking-desc-after" *ngIf="colI == 1">
+        WOMEN'S DIVISION
+      </div>
+      <div class="ranking-desc ranking-desc-after" *ngIf="colI == 2">
+        TAG TEAM DIVISION
+      </div>
       <div
         class="champion-section"
         *ngFor="let belt of champions[colI]; let i2 = index"
@@ -272,9 +276,7 @@
               </div>
               <div class="facts-box">
                 <div class="facts-left" *ngIf="item.streak > 2">
-                  {{ item.streak }} win streak<span *ngIf="item.streak > 3"
-                    >!</span
-                  >
+                  {{ item.streak }} win streak!
                 </div>
                 <div
                   class="facts-right"
