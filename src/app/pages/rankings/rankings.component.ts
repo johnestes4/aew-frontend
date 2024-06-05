@@ -83,9 +83,9 @@ export class RankingsComponent implements OnInit {
     [false, false, false, false, false, false, false, false, false, false],
   ];
   public isExpanded = [
-    [true, false, false, false, false, false, false, false, false, false],
-    [true, false, false, false, false, false, false, false, false, false],
-    [true, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
   ];
   public championExpanded = [
     [false, false, false, false],
