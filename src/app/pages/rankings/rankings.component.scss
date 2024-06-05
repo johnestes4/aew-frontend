@@ -97,8 +97,8 @@ body {
 }
 
 .info-img {
-  height: 170px;
-  width: 170px;
+  height: 140px;
+  width: 140px;
   position: relative;
   float: left;
   top: 0px;
@@ -110,8 +110,8 @@ body {
   width: 100%;
 }
 .record-box {
-  height: 100%;
-  width: calc(100% - 190px);
+  height: calc(100% - 30px);
+  width: calc(100% - 160px);
 
   float: left;
 }
@@ -145,7 +145,32 @@ body {
 }
 .record h1 {
   font-size: 22px;
-  margin: 8px 0px 2px 0px;
+  margin: 2px 0px -2px 0px;
+}
+.facts-box {
+  float: left;
+  width: 100%;
+  border-top: 1px solid rgb(180, 159, 0);
+  // background-color: green;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-style: italic;
+}
+.facts-left {
+  float: left;
+  border-right: 1px solid rgb(180, 159, 0);
+  width: 161px;
+  height: 100%;
+}
+
+.facts-right {
+  float: left;
+  width: calc(100% - 161px);
+  height: 100%;
+}
+.facts-right-expand {
+  width: 100%;
 }
 
 .arrow {

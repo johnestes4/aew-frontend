@@ -211,19 +211,19 @@
                     </p>
                   </div>
                   <div class="record">
-                    <h1>Singles</h1>
-                    <p>
-                      {{ item.recordYear.singlesWins }}-{{
-                        item.recordYear.singlesLosses
-                      }}-{{ item.recordYear.singlesDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
                     <h1>Tag</h1>
                     <p>
                       {{ item.recordYear.tagWins }}-{{
                         item.recordYear.tagLosses
                       }}-{{ item.recordYear.tagDraws }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Singles</h1>
+                    <p>
+                      {{ item.recordYear.singlesWins }}-{{
+                        item.recordYear.singlesLosses
+                      }}-{{ item.recordYear.singlesDraws }}
                     </p>
                   </div>
                   <div class="record">
@@ -245,19 +245,19 @@
                     </p>
                   </div>
                   <div class="record">
-                    <h1>Singles</h1>
-                    <p>
-                      {{ item.record.singlesWins }}-{{
-                        item.record.singlesLosses
-                      }}-{{ item.record.singlesDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
                     <h1>Tag</h1>
                     <p>
                       {{ item.record.tagWins }}-{{ item.record.tagLosses }}-{{
                         item.record.tagDraws
                       }}
+                    </p>
+                  </div>
+                  <div class="record">
+                    <h1>Singles</h1>
+                    <p>
+                      {{ item.record.singlesWins }}-{{
+                        item.record.singlesLosses
+                      }}-{{ item.record.singlesDraws }}
                     </p>
                   </div>
                   <div class="record">
@@ -269,6 +269,26 @@
                     </p>
                   </div>
                 </span>
+              </div>
+              <div class="facts-box">
+                <div class="facts-left" *ngIf="item.streak > 2">
+                  {{ item.streak }} win streak<span *ngIf="item.streak > 3"
+                    >!</span
+                  >
+                </div>
+                <div
+                  class="facts-right"
+                  [ngClass]="{ 'facts-right-expand': item.streak <= 2 }"
+                >
+                  <span *ngIf="item.streakFact.wins > 2">
+                    Won {{ item.streakFact.wins }} of
+                    <span *ngIf="colI == 0">his</span>
+                    <span *ngIf="colI == 1">her</span>
+                    <span *ngIf="colI == 2">their</span>
+                    last
+                    {{ item.streakFact.overall }} matches
+                  </span>
+                </div>
               </div>
             </div>
           </span>
