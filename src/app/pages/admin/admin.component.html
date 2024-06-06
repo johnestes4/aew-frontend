@@ -282,7 +282,7 @@
             </h1>
             <p>{{ this.activeWres._id }}</p>
           </div>
-          <div class="wres-trait col-md-4 col-sm-6">
+          <div class="wres-trait col-md-5 col-sm-3">
             <p>ALIASES</p>
             <div style="float: left; width: calc(100%-22px)">
               <div
@@ -301,7 +301,7 @@
               <button class="alias-button" (click)="addAlias()">+</button>
             </div>
           </div>
-          <div class="wres-trait col-md-4 col-sm-6">
+          <div class="wres-trait col-md-2 col-sm-3">
             <p>MALE</p>
             <input
               type="checkbox"
@@ -310,13 +310,22 @@
               [(ngModel)]="this.activeWres.male"
             />
           </div>
-          <div class="wres-trait col-md-4 col-sm-6">
+          <div class="wres-trait col-md-2 col-sm-3">
             <p>ALL ELITE</p>
             <input
               type="checkbox"
               name=""
               id=""
               [(ngModel)]="this.activeWres.allElite"
+            />
+          </div>
+          <div class="wres-trait col-md-2 col-sm-3">
+            <p>FORBIDDEN DOOR</p>
+            <input
+              type="checkbox"
+              name=""
+              id=""
+              [(ngModel)]="this.activeWres.forbiddenDoor"
             />
           </div>
           <span style="height: 20px"></span>

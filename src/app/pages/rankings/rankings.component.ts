@@ -15,7 +15,6 @@ import { AppService } from 'src/app/services/app.service';
   styleUrls: ['./rankings.component.scss'],
 })
 export class RankingsComponent implements OnInit {
-  public loading: boolean = false;
   public rankings: any[] = [];
   public champNames = new Map();
   public champions: any[] = [
@@ -24,21 +23,25 @@ export class RankingsComponent implements OnInit {
         name: 'AEW World Championship',
         shortName: 'World',
         champion: null,
+        defenses: 0,
       },
       {
         name: 'AEW TNT Championship',
         shortName: 'TNT',
         champion: null,
+        defenses: 0,
       },
       {
         name: 'AEW International Championship',
         shortName: 'International',
         champion: null,
+        defenses: 0,
       },
       {
         name: 'AEW Continental Championship',
         shortName: 'Continental',
         champion: null,
+        defenses: 0,
       },
     ],
     [
@@ -46,8 +49,14 @@ export class RankingsComponent implements OnInit {
         name: "AEW Women's World Championship",
         shortName: 'World',
         champion: null,
+        defenses: 0,
       },
-      { name: 'AEW TBS Championship', shortName: 'TBS', champion: null },
+      {
+        name: 'AEW TBS Championship',
+        shortName: 'TBS',
+        champion: null,
+        defenses: 0,
+      },
     ],
     [
       {
@@ -55,6 +64,7 @@ export class RankingsComponent implements OnInit {
         shortName: 'World Tag Team',
         champion: [],
         championTeam: null,
+        defenses: 0,
       },
     ],
   ];
@@ -87,16 +97,14 @@ export class RankingsComponent implements OnInit {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
   ];
-  public championExpanded = [
-    [false, false, false, false],
-    [false, false],
-    [false, false],
-  ];
+  public championExpanded = [-1, -1, -1];
+  public championRecordToggles = [false, false, false];
+  public expandableChampions = [];
   constructor(
     private http: HttpClient,
     private rankingsService: RankingsService,
     private titleService: TitleService,
-    private appComponent: AppComponent,
+    public appComponent: AppComponent,
     private cdRef: ChangeDetectorRef
   ) {
     this.initialize();
@@ -127,6 +135,8 @@ export class RankingsComponent implements OnInit {
                 ) {
                   localTitle.champion = title.currentChampion;
                   localTitle.championTeam = title.currentChampionTeam;
+                  localTitle.defenses =
+                    title.reigns[title.reigns.length - 1].defenses.length;
                 } else {
                   localTitle.champion = title.currentChampion[0];
                   localTitle.champion.profileImage =
@@ -139,6 +149,8 @@ export class RankingsComponent implements OnInit {
                     localTitle.champion.profileImage.slice(
                       localTitle.champion.profileImage.indexOf('.jpg')
                     );
+                  localTitle.defenses =
+                    title.reigns[title.reigns.length - 1].defenses.length;
                 }
                 matchFound = true;
                 break;
@@ -149,6 +161,7 @@ export class RankingsComponent implements OnInit {
             }
           }
         }
+        console.log(this.champions);
         var date = new Date(res.data.date);
         this.dateObj = date;
         // console.log(date);
@@ -165,6 +178,14 @@ export class RankingsComponent implements OnInit {
         this.appComponent.loadingFalse();
       },
     });
+  }
+
+  getChampForExpansion(colI: number) {
+    if (colI < 2) {
+      return this.champions[colI][this.championExpanded[colI]].champion;
+    } else {
+      return this.champions[colI][this.championExpanded[colI]].championTeam;
+    }
   }
 
   getDateGap(date: Date) {
