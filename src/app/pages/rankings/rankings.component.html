@@ -1,4 +1,4 @@
-<div id="rankings-container">
+<div id="rankings-container" *ngIf="!this.appComponent.loading">
   <div class="ranking-date">Rankings For {{ this.date }}</div>
   <div class="row" style="margin-top: 15px">
     <div
@@ -11,6 +11,139 @@
       </div>
       <div class="ranking-desc ranking-desc-after" *ngIf="colI == 2">
         TAG TEAM DIVISION
+      </div>
+      <div class="champion-expanded">
+        <div class="info-img">
+          <img
+            *ngIf="getChampForExpansion(colI).profileImage"
+            src="{{ getChampForExpansion(colI).profileImage }}"
+            alt=""
+          />
+        </div>
+        <div class="record-box">
+          <div class="row record-tabs">
+            <div
+              class="col-6"
+              [ngClass]="{
+                'record-tab-active': !this.championRecordToggles[colI],
+                'record-tab-inactive': this.championRecordToggles[colI]
+              }"
+              (click)="this.championRecordToggles[colI] = false"
+            >
+              2024
+            </div>
+            <div
+              class="col-6"
+              [ngClass]="{
+                'record-tab-active': this.championRecordToggles[colI],
+                'record-tab-inactive': !this.championRecordToggles[colI]
+              }"
+              (click)="this.championRecordToggles[colI] = true"
+            >
+              CAREER
+            </div>
+          </div>
+          <span class="" *ngIf="!this.championRecordToggles[colI]">
+            <div class="record">
+              <h1>Overall</h1>
+              <p>
+                {{ getChampForExpansion(colI).recordYear.overallWins }}-{{
+                  getChampForExpansion(colI).recordYear.overallLosses
+                }}-{{ getChampForExpansion(colI).recordYear.overallDraws }}
+              </p>
+            </div>
+            <div class="record">
+              <h1>Tag</h1>
+              <p>
+                {{ getChampForExpansion(colI).recordYear.tagWins }}-{{
+                  getChampForExpansion(colI).recordYear.tagLosses
+                }}-{{ getChampForExpansion(colI).recordYear.tagDraws }}
+              </p>
+            </div>
+            <div class="record">
+              <h1>Singles</h1>
+              <p>
+                {{ getChampForExpansion(colI).recordYear.singlesWins }}-{{
+                  getChampForExpansion(colI).recordYear.singlesLosses
+                }}-{{ getChampForExpansion(colI).recordYear.singlesDraws }}
+              </p>
+            </div>
+            <div class="record">
+              <h1>Trio</h1>
+              <p>
+                {{ getChampForExpansion(colI).recordYear.trioWins }}-{{
+                  getChampForExpansion(colI).recordYear.trioLosses
+                }}-{{ getChampForExpansion(colI).recordYear.trioDraws }}
+              </p>
+            </div>
+          </span>
+          <span class="" *ngIf="this.championRecordToggles[colI]">
+            <div class="record">
+              <h1>Overall</h1>
+              <p>
+                {{ getChampForExpansion(colI).record.overallWins }}-{{
+                  getChampForExpansion(colI).record.overallLosses
+                }}-{{ getChampForExpansion(colI).record.overallDraws }}
+              </p>
+            </div>
+            <div class="record">
+              <h1>Tag</h1>
+              <p>
+                {{ getChampForExpansion(colI).record.tagWins }}-{{
+                  getChampForExpansion(colI).record.tagLosses
+                }}-{{ getChampForExpansion(colI).record.tagDraws }}
+              </p>
+            </div>
+            <div class="record">
+              <h1>Singles</h1>
+              <p>
+                {{ getChampForExpansion(colI).record.singlesWins }}-{{
+                  getChampForExpansion(colI).record.singlesLosses
+                }}-{{ getChampForExpansion(colI).record.singlesDraws }}
+              </p>
+            </div>
+            <div class="record">
+              <h1>Trio</h1>
+              <p>
+                {{ getChampForExpansion(colI).record.trioWins }}-{{
+                  getChampForExpansion(colI).record.trioLosses
+                }}-{{ getChampForExpansion(colI).record.trioDraws }}
+              </p>
+            </div>
+          </span>
+        </div>
+        <div class="facts-box">
+          <div class="facts-left" *ngIf="getChampForExpansion(colI).streak > 2">
+            {{ getChampForExpansion(colI).streak }} win streak!
+          </div>
+          <div
+            class="facts-right"
+            [ngClass]="{
+              'facts-right-expand': getChampForExpansion(colI).streak <= 2
+            }"
+          >
+            <span *ngIf="getChampForExpansion(colI).streakFact.wins > 2">
+              Won
+              {{ getChampForExpansion(colI).streakFact.wins }}
+              of
+              <span *ngIf="colI == 0">his</span>
+              <span *ngIf="colI == 1">her</span>
+              <span *ngIf="colI == 2">their</span>
+              last
+              {{ getChampForExpansion(colI).streakFact.overall }}
+              matches
+            </span>
+          </div>
+          <div class="facts-bottom">
+            {{ this.champions[colI][this.championExpanded[colI]].defenses }}
+            Title Defense<span
+              *ngIf="
+                this.champions[colI][this.championExpanded[colI]].defenses !== 1
+              "
+              >s</span
+            >
+          </div>
+        </div>
       </div>
       <div
         class="champion-section"

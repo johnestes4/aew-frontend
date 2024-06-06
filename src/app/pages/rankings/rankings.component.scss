@@ -2,7 +2,7 @@ body {
   background-color: rgba(244, 244, 244, 1);
 }
 .rankings-list {
-  height: 100%;
+  position: relative;
 }
 
 .rankings-item {
@@ -170,6 +170,60 @@ body {
   height: 100%;
 }
 .facts-right-expand {
+  width: 100%;
+}
+
+.champion-expanded {
+  width: calc(100% - 24px);
+  z-index: 2;
+  position: absolute;
+  // display: flex;
+  // border: 1px solid red;
+  height: 270px;
+  top: 47px;
+  left: 12px;
+  background-color: rgba(0, 0, 0, 1);
+  color: rgba(244, 244, 244, 1);
+}
+
+.champion-expanded .info-img {
+  top: 0px;
+  left: 0px;
+  width: 200px;
+  height: 200px;
+  margin-right: 0px;
+}
+.champion-expanded .record-box {
+  width: calc(100% - 200px);
+  height: calc(100% - 70px);
+}
+
+.champion-expanded .record h1 {
+  font-size: 26px;
+  margin: 7px 0px 1px 0px;
+}
+.champion-expanded .record p {
+  font-size: 26px;
+}
+
+.champion-expanded .facts-box {
+  line-height: 35px;
+  height: 70px;
+}
+.champion-expanded .facts-left {
+  height: 50%;
+  width: 201px;
+}
+.champion-expanded .facts-right {
+  height: 50%;
+  width: calc(100% - 201px);
+}
+.champion-expanded .facts-right-expand {
+  width: 100%;
+}
+.facts-bottom {
+  float: left;
+  border-top: 1px solid rgb(180, 159, 0);
   width: 100%;
 }
 
