@@ -97,7 +97,7 @@ export class RankingsComponent implements OnInit {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
   ];
-  public championExpanded = [0, 0, 0];
+  public championExpanded = [-1, -1, -1];
   public championRecordToggles = [false, false, false];
   public expandableChampions = [];
   constructor(
@@ -136,7 +136,7 @@ export class RankingsComponent implements OnInit {
                   localTitle.champion = title.currentChampion;
                   localTitle.championTeam = title.currentChampionTeam;
                   localTitle.defenses =
-                    title.reigns[title.reigns.length - 1].defenses.length - 1;
+                    title.reigns[title.reigns.length - 1].defenses.length;
                 } else {
                   localTitle.champion = title.currentChampion[0];
                   localTitle.champion.profileImage =
@@ -150,7 +150,7 @@ export class RankingsComponent implements OnInit {
                       localTitle.champion.profileImage.indexOf('.jpg')
                     );
                   localTitle.defenses =
-                    title.reigns[title.reigns.length - 1].defenses.length - 1;
+                    title.reigns[title.reigns.length - 1].defenses.length;
                 }
                 matchFound = true;
                 break;

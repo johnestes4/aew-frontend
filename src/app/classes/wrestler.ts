@@ -5,6 +5,7 @@ export class Wrestler {
   nickname: string;
   aliases: string[];
   allElite: boolean;
+  forbiddenDoor: boolean;
   male: boolean;
   power: Number;
   powerHistory: any[];
@@ -23,6 +24,7 @@ export class Wrestler {
     this.nickname = '';
     this.aliases = [];
     this.allElite = false;
+    this.forbiddenDoor = false;
     this.male = true;
     this.power = 0;
     this.powerHistory = [];

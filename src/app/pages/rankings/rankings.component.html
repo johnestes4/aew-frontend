@@ -1,5 +1,5 @@
 <div id="rankings-container" *ngIf="!this.appComponent.loading">
-  <div class="ranking-date">Rankings For {{ this.date }}</div>
+  <div class="ranking-date">Rankings as of {{ this.date }}</div>
   <div class="row" style="margin-top: 15px">
     <div
       class="rankings-list col-lg-4"
@@ -12,8 +12,22 @@
       <div class="ranking-desc ranking-desc-after" *ngIf="colI == 2">
         TAG TEAM DIVISION
       </div>
-      <div class="champion-expanded">
-        <div class="info-img">
+      <div
+        class="champion-expanded cursor-me"
+        *ngIf="this.championExpanded[colI] !== -1"
+      >
+        <div
+          class="champion-expanded-name"
+          (click)="this.championExpanded[colI] = -1"
+        >
+          <div class="champion-expanded-name-left">
+            {{ getChampForExpansion(colI).name }}
+          </div>
+          <div class="champion-expanded-name-right">
+            {{ getChampForExpansion(colI).power }}
+          </div>
+        </div>
+        <div class="info-img" (click)="this.championExpanded[colI] = -1">
           <img
             *ngIf="getChampForExpansion(colI).profileImage"
             src="{{ getChampForExpansion(colI).profileImage }}"
@@ -43,7 +57,11 @@
               CAREER
             </div>
           </div>
-          <span class="" *ngIf="!this.championRecordToggles[colI]">
+          <span
+            class=""
+            *ngIf="!this.championRecordToggles[colI]"
+            (click)="this.championExpanded[colI] = -1"
+          >
             <div class="record">
               <h1>Overall</h1>
               <p>
@@ -77,7 +95,11 @@
               </p>
             </div>
           </span>
-          <span class="" *ngIf="this.championRecordToggles[colI]">
+          <span
+            class=""
+            *ngIf="this.championRecordToggles[colI]"
+            (click)="this.championExpanded[colI] = -1"
+          >
             <div class="record">
               <h1>Overall</h1>
               <p>
@@ -112,7 +134,7 @@
             </div>
           </span>
         </div>
-        <div class="facts-box">
+        <div class="facts-box" (click)="this.championExpanded[colI] = -1">
           <div class="facts-left" *ngIf="getChampForExpansion(colI).streak > 2">
             {{ getChampForExpansion(colI).streak }} win streak!
           </div>
@@ -150,13 +172,14 @@
         *ngFor="let belt of champions[colI]; let i2 = index"
       >
         <div
-          class="champ-box"
+          class="champ-box cursor-me"
           [ngClass]="{
             'champ-4': champions[colI].length == 4,
             'champ-2': champions[colI].length == 2,
             'champ-1': champions[colI].length == 1,
             'champ-buffer': i2 < champions[colI].length - 1
           }"
+          (click)="this.championExpanded[colI] = i2"
         >
           <div
             class="champ-picture"
@@ -252,41 +275,50 @@
                 this.getDateGap(
                   item.powerHistory[item.powerHistory.length - 1].date
                 ) <= 3 &&
-                item.powerHistory[item.powerHistory.length - 2].place > i + 1
+                (item.powerHistory.length == 1 ||
+                  item.powerHistory[item.powerHistory.length - 2].place > i + 1)
               "
             >
               <div class="arrow-popup" style="background-color: green">
                 <p>
-                  UP from #{{
-                    item.powerHistory[item.powerHistory.length - 2].place
-                  }}, power
-                  {{ item.powerHistory[item.powerHistory.length - 2].power }}
+                  UP from
+                  <span *ngIf="item.powerHistory.length == 1">Unranked</span
+                  ><span *ngIf="item.powerHistory.length > 1"
+                    >#{{
+                      item.powerHistory[item.powerHistory.length - 2].place
+                    }}, power
+                    {{
+                      item.powerHistory[item.powerHistory.length - 2].power
+                    }}</span
+                  >
                 </p>
               </div>
               <img src="./assets/icon/arrowup.png" alt="" />
             </div>
-            <div
-              class="arrow"
-              *ngIf="
-                this.getDateGap(
-                  item.powerHistory[item.powerHistory.length - 1].date
-                ) <= 3 &&
-                item.powerHistory[item.powerHistory.length - 2].place < i + 1
-              "
-            >
+            <span *ngIf="item.powerHistory.length > 1">
               <div
-                class="arrow-popup"
-                style="background-color: red; color: white"
+                class="arrow"
+                *ngIf="
+                  this.getDateGap(
+                    item.powerHistory[item.powerHistory.length - 1].date
+                  ) <= 3 &&
+                  item.powerHistory[item.powerHistory.length - 2].place < i + 1
+                "
               >
-                <p>
-                  DOWN from #{{
-                    item.powerHistory[item.powerHistory.length - 2].place
-                  }}, power
-                  {{ item.powerHistory[item.powerHistory.length - 2].power }}
-                </p>
+                <div
+                  class="arrow-popup"
+                  style="background-color: red; color: white"
+                >
+                  <p>
+                    DOWN from #{{
+                      item.powerHistory[item.powerHistory.length - 2].place
+                    }}, power
+                    {{ item.powerHistory[item.powerHistory.length - 2].power }}
+                  </p>
+                </div>
+                <img src="./assets/icon/arrowdown.png" alt="" />
               </div>
-              <img src="./assets/icon/arrowdown.png" alt="" />
-            </div>
+            </span>
             {{ item.power.toFixed(0) }}
           </div>
           <!-- <div class="ranking-power">
