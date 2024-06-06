@@ -114,7 +114,11 @@ body {
 .record-box {
   height: calc(100% - 30px);
   width: calc(100% - 150px);
-
+  float: left;
+}
+.record-box-stretch {
+  height: calc(100% - 30px);
+  width: 100%;
   float: left;
 }
 .record-tabs {
@@ -172,7 +176,7 @@ body {
   height: 100%;
 }
 .facts-right-expand {
-  width: 100%;
+  width: 100% !important;
 }
 
 .champion-expanded {
@@ -200,6 +204,10 @@ body {
   height: calc(100% - 104px);
 }
 
+.champion-expanded .record-box-stretch {
+  height: calc(100% - 104px);
+}
+
 .champion-expanded .record h1 {
   font-size: 26px;
   margin: 4px 0px -4px 0px;
@@ -219,9 +227,6 @@ body {
 .champion-expanded .facts-right {
   height: 50%;
   width: calc(100% - 166px);
-}
-.champion-expanded .facts-right-expand {
-  width: 100%;
 }
 
 .champion-expanded-name {
@@ -499,7 +504,11 @@ body {
   .record-box {
     height: calc(100% - 20px);
     width: calc(100% - 100px);
-    padding-left: 0px;
+    float: left;
+  }
+  .record-box-stretch {
+    height: calc(100% - 20px);
+    width: 100%;
     float: left;
   }
   .record-tabs {
@@ -528,9 +537,6 @@ body {
     float: left;
     width: calc(100% - 101px);
     height: 100%;
-  }
-  .facts-right-expand {
-    width: 100%;
   }
 
   .ranking-name {
@@ -580,6 +586,9 @@ body {
   }
 }
 @media screen and (max-width: 1150px) {
+  .champion-expanded-name {
+    font-size: 26px;
+  }
   .facts-right {
     font-size: 11px;
   }
