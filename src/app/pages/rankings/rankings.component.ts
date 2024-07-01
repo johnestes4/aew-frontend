@@ -108,6 +108,11 @@ export class RankingsComponent implements OnInit {
     private cdRef: ChangeDetectorRef
   ) {
     this.initialize();
+    appComponent.gtag.sendPageviewData({
+      page_title: 'Rankings',
+      page_path: '/',
+      page_location: 'https://www.elite-rankings.com',
+    });
   }
 
   initialize() {
