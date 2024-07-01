@@ -9,6 +9,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
 import { RouterLinkDirective } from './directives/routerlink.directive';
 import { TonyComponent } from './pages/tony/tony.component';
+import { GtagModule } from 'angular-gtag';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,16 @@ import { TonyComponent } from './pages/tony/tony.component';
     RouterLinkDirective,
     TonyComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    GtagModule.forRoot({
+      trackingId: 'G-5095C3WF0X',
+      trackPageviews: true,
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

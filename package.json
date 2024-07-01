@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^18.0.1",
     "@angular/platform-browser-dynamic": "^18.0.1",
     "@angular/router": "^18.0.1",
+    "angular-gtag": "^1.0.4",
     "bootstrap": "^5.3.3",
     "rxjs": "~6.6.0",
     "tslib": "^2.4.0",
