@@ -4,6 +4,9 @@ body {
 .rankings-list {
   position: relative;
 }
+.off {
+  display: none;
+}
 
 .rankings-item {
   color: rgba(244, 244, 244, 1);
@@ -301,6 +304,10 @@ body {
   width: calc((100% - 45px) / 4);
   float: left;
 }
+.champ-3 {
+  width: calc((100% - 15px) / 3);
+  float: left;
+}
 .champ-2 {
   width: calc((100% - 15px) / 2);
   float: left;
@@ -341,6 +348,9 @@ body {
   object-fit: cover;
 }
 
+.champ-picture-3 {
+  object-position: top;
+}
 .champ-picture-2 {
   object-position: top;
 }
@@ -359,6 +369,10 @@ body {
 
 .champ-picture-tag {
   width: 50%;
+  float: left;
+}
+.champ-picture-trio {
+  width: calc(100% / 3);
   float: left;
 }
 .champ-picture-tag img {
@@ -418,6 +432,34 @@ body {
   font-size: 24px;
   color: rgba(244, 244, 244, 1);
   margin-bottom: 15px;
+}
+
+#team-switch {
+  height: 32px;
+  width: 32px;
+  line-height: 32px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  right: 12px;
+  top: 0px;
+}
+#team-switch img {
+  width: 27px;
+  height: 27px;
+  position: relative;
+  margin: 2px;
+  margin-bottom: 4px;
+  opacity: 50%;
+}
+#team-switch:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+
+#team-switch:hover img {
+  opacity: 100%;
 }
 
 @media screen and (max-width: 1600px) {
@@ -602,6 +644,9 @@ body {
 @media screen and (max-width: 991px) {
   .ranking-desc-after {
     margin-top: 15px;
+  }
+  #team-switch {
+    top: 15px;
   }
   .facts-right {
     font-size: 14px;

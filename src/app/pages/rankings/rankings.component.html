@@ -4,13 +4,22 @@
     <div
       class="rankings-list col-lg-4"
       *ngFor="let ranking of rankings; let colI = index"
+      [ngClass]="{
+        off: colI !== 0 && colI !== 1 && colI !== whichTeam
+      }"
     >
       <div class="ranking-desc" *ngIf="colI == 0">MEN'S DIVISION</div>
       <div class="ranking-desc ranking-desc-after" *ngIf="colI == 1">
         WOMEN'S DIVISION
       </div>
-      <div class="ranking-desc ranking-desc-after" *ngIf="colI == 2">
-        TAG TEAM DIVISION
+      <div class="ranking-desc ranking-desc-after" *ngIf="colI == whichTeam">
+        <span *ngIf="whichTeam == 2">TAG TEAM DIVISION</span>
+        <span *ngIf="whichTeam == 3">TRIOS DIVISION</span>
+        <div id="team-switch" (click)="switchTeam()">
+          <img src="../../../assets/icon/switch.png" alt="" />
+          <!-- <span *ngIf="whichTeam == 2">3</span
+          ><span *ngIf="whichTeam == 3">2</span> -->
+        </div>
       </div>
       <div
         class="champion-expanded cursor-me"
@@ -183,6 +192,7 @@
           class="champ-box cursor-me"
           [ngClass]="{
             'champ-4': champions[colI].length == 4,
+            'champ-3': champions[colI].length == 3,
             'champ-2': champions[colI].length == 2,
             'champ-1': champions[colI].length == 1,
             'champ-buffer': i2 < champions[colI].length - 1
@@ -201,6 +211,7 @@
               alt=""
               [ngClass]="{
                 'champ-picture-4': champions[colI].length == 4,
+                'champ-picture-3': champions[colI].length == 3,
                 'champ-picture-2': champions[colI].length == 2,
                 'champ-picture-1': champions[colI].length == 1
               }"
@@ -208,6 +219,7 @@
             <div
               [ngClass]="{
                 'champ-picture-4': champions[colI].length == 4,
+                'champ-picture-3': champions[colI].length == 3,
                 'champ-picture-2': champions[colI].length == 2,
                 'champ-picture-1': champions[colI].length == 1
               }"
@@ -217,7 +229,12 @@
                 class="champ-picture-tag-container"
                 *ngFor="let champion of belt.champion"
               >
-                <div class="champ-picture-tag">
+                <div
+                  [ngClass]="{
+                  'champ-picture-tag': belt.champion.length == 2,
+                  'champ-picture-trio': belt.champion.length == 3,
+                }"
+                >
                   <img [src]="champion.profileImage" alt="" />
                 </div>
               </div>
@@ -263,215 +280,222 @@
         <!-- <div class="champ-buffer" *ngIf="i2 < champions[i].length - 1"></div> -->
       </div>
       <div class="champion-section-buffer"></div>
-      <div *ngFor="let item of ranking; let i = index">
-        <div
-          class="rankings-item col-12"
-          (click)="this.isExpanded[colI][i] = !this.isExpanded[colI][i]"
-        >
-          <div class="ranking-number">{{ i + 1 }}</div>
-          <div class="ranking-buffer"></div>
+      <div>
+        <div *ngFor="let item of ranking; let i = index">
           <div
-            class="ranking-name"
-            [ngClass]="{ 'ranking-name-small': item.name.length > 20 }"
+            class="rankings-item col-12"
+            (click)="this.isExpanded[colI][i] = !this.isExpanded[colI][i]"
           >
-            {{ item.name.toUpperCase() }}
-          </div>
-          <div class="ranking-power">
+            <div class="ranking-number">{{ i + 1 }}</div>
+            <div class="ranking-buffer"></div>
             <div
-              class="arrow"
-              *ngIf="
-                this.getDateGap(
-                  item.powerHistory[item.powerHistory.length - 1].date
-                ) <= 3 &&
-                (item.powerHistory.length == 1 ||
-                  item.powerHistory[item.powerHistory.length - 2].place > i + 1)
-              "
+              class="ranking-name"
+              [ngClass]="{ 'ranking-name-small': item.name.length > 20 }"
             >
-              <div class="arrow-popup" style="background-color: green">
-                <p>
-                  UP from
-                  <span *ngIf="item.powerHistory.length == 1">Unranked</span
-                  ><span *ngIf="item.powerHistory.length > 1"
-                    >#{{
-                      item.powerHistory[item.powerHistory.length - 2].place
-                    }}, power
-                    {{
-                      item.powerHistory[item.powerHistory.length - 2].power
-                    }}</span
-                  >
-                </p>
-              </div>
-              <img src="./assets/icon/arrowup.png" alt="" />
+              {{ item.name.toUpperCase() }}
             </div>
-            <span *ngIf="item.powerHistory.length > 1">
+            <div class="ranking-power">
               <div
                 class="arrow"
                 *ngIf="
+                  item.powerHistory.length > 0 &&
                   this.getDateGap(
                     item.powerHistory[item.powerHistory.length - 1].date
                   ) <= 3 &&
-                  item.powerHistory[item.powerHistory.length - 2].place < i + 1
+                  (item.powerHistory.length == 1 ||
+                    item.powerHistory[item.powerHistory.length - 2].place >
+                      i + 1)
                 "
               >
-                <div
-                  class="arrow-popup"
-                  style="background-color: red; color: white"
-                >
+                <div class="arrow-popup" style="background-color: green">
                   <p>
-                    DOWN from #{{
-                      item.powerHistory[item.powerHistory.length - 2].place
-                    }}, power
-                    {{ item.powerHistory[item.powerHistory.length - 2].power }}
+                    UP from
+                    <span *ngIf="item.powerHistory.length == 1">Unranked</span
+                    ><span *ngIf="item.powerHistory.length > 1"
+                      >#{{
+                        item.powerHistory[item.powerHistory.length - 2].place
+                      }}, power
+                      {{
+                        item.powerHistory[item.powerHistory.length - 2].power
+                      }}</span
+                    >
                   </p>
                 </div>
-                <img src="./assets/icon/arrowdown.png" alt="" />
+                <img src="./assets/icon/arrowup.png" alt="" />
               </div>
-            </span>
-            {{ item.power.toFixed(0) }}
+              <span *ngIf="item.powerHistory.length > 1">
+                <div
+                  class="arrow"
+                  *ngIf="
+                    this.getDateGap(
+                      item.powerHistory[item.powerHistory.length - 1].date
+                    ) <= 3 &&
+                    item.powerHistory[item.powerHistory.length - 2].place <
+                      i + 1
+                  "
+                >
+                  <div
+                    class="arrow-popup"
+                    style="background-color: red; color: white"
+                  >
+                    <p>
+                      DOWN from #{{
+                        item.powerHistory[item.powerHistory.length - 2].place
+                      }}, power
+                      {{
+                        item.powerHistory[item.powerHistory.length - 2].power
+                      }}
+                    </p>
+                  </div>
+                  <img src="./assets/icon/arrowdown.png" alt="" />
+                </div>
+              </span>
+              {{ item.power.toFixed(0) }}
+            </div>
+            <!-- <div class="ranking-power">
+              {{ item.powerHistory[item.powerHistory.length - 1].place  }}
+            </div> -->
           </div>
-          <!-- <div class="ranking-power">
-            {{ item.powerHistory[item.powerHistory.length - 1].place  }}
-          </div> -->
-        </div>
-        <div
-          class="rankings-item-expanded col-12"
-          [ngClass]="{
-            'expanded-off': !this.isExpanded[colI][i],
-            'expanded-on': this.isExpanded[colI][i]
-          }"
-        >
-          <span
+          <div
+            class="rankings-item-expanded col-12"
             [ngClass]="{
-              'expanded-content-off': !this.isExpanded[colI][i],
-              'expanded-content-on': this.isExpanded[colI][i]
+              'expanded-off': !this.isExpanded[colI][i],
+              'expanded-on': this.isExpanded[colI][i]
             }"
           >
-            <div class="expanded-buffer"></div>
-            <div class="expanded-info">
-              <div class="info-img" *ngIf="item.profileImage">
-                <img
-                  *ngIf="item.profileImage"
-                  src="{{ item.profileImage }}"
-                  alt=""
-                />
-              </div>
-              <div
-                [ngClass]="{
-                  'record-box': item.profileImage,
-                  'record-box-stretch': !item.profileImage
-                }"
-              >
-                <div class="row record-tabs">
-                  <div
-                    class="col-6"
-                    [ngClass]="{
-                      'record-tab-active': !this.recordToggles[colI][i],
-                      'record-tab-inactive': this.recordToggles[colI][i]
-                    }"
-                    (click)="this.recordToggles[colI][i] = false"
-                  >
-                    2024
-                  </div>
-                  <div
-                    class="col-6"
-                    [ngClass]="{
-                      'record-tab-active': this.recordToggles[colI][i],
-                      'record-tab-inactive': !this.recordToggles[colI][i]
-                    }"
-                    (click)="this.recordToggles[colI][i] = true"
-                  >
-                    CAREER
-                  </div>
-                </div>
-                <span class="" *ngIf="!this.recordToggles[colI][i]">
-                  <div class="record">
-                    <h1>Overall</h1>
-                    <p>
-                      {{ item.recordYear.overallWins }}-{{
-                        item.recordYear.overallLosses
-                      }}-{{ item.recordYear.overallDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
-                    <h1>Tag</h1>
-                    <p>
-                      {{ item.recordYear.tagWins }}-{{
-                        item.recordYear.tagLosses
-                      }}-{{ item.recordYear.tagDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
-                    <h1>Singles</h1>
-                    <p>
-                      {{ item.recordYear.singlesWins }}-{{
-                        item.recordYear.singlesLosses
-                      }}-{{ item.recordYear.singlesDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
-                    <h1>Trio</h1>
-                    <p>
-                      {{ item.recordYear.trioWins }}-{{
-                        item.recordYear.trioLosses
-                      }}-{{ item.recordYear.trioDraws }}
-                    </p>
-                  </div>
-                </span>
-                <span class="" *ngIf="this.recordToggles[colI][i]">
-                  <div class="record">
-                    <h1>Overall</h1>
-                    <p>
-                      {{ item.record.overallWins }}-{{
-                        item.record.overallLosses
-                      }}-{{ item.record.overallDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
-                    <h1>Tag</h1>
-                    <p>
-                      {{ item.record.tagWins }}-{{ item.record.tagLosses }}-{{
-                        item.record.tagDraws
-                      }}
-                    </p>
-                  </div>
-                  <div class="record">
-                    <h1>Singles</h1>
-                    <p>
-                      {{ item.record.singlesWins }}-{{
-                        item.record.singlesLosses
-                      }}-{{ item.record.singlesDraws }}
-                    </p>
-                  </div>
-                  <div class="record">
-                    <h1>Trio</h1>
-                    <p>
-                      {{ item.record.trioWins }}-{{ item.record.trioLosses }}-{{
-                        item.record.trioDraws
-                      }}
-                    </p>
-                  </div>
-                </span>
-              </div>
-              <div class="facts-box">
-                <div class="facts-left" *ngIf="item.streak > 2">
-                  {{ item.streak }} win streak!
+            <span
+              [ngClass]="{
+                'expanded-content-off': !this.isExpanded[colI][i],
+                'expanded-content-on': this.isExpanded[colI][i]
+              }"
+            >
+              <div class="expanded-buffer"></div>
+              <div class="expanded-info">
+                <div class="info-img" *ngIf="item.profileImage">
+                  <img
+                    *ngIf="item.profileImage"
+                    src="{{ item.profileImage }}"
+                    alt=""
+                  />
                 </div>
                 <div
-                  class="facts-right"
-                  [ngClass]="{ 'facts-right-expand': item.streak <= 2 }"
+                  [ngClass]="{
+                    'record-box': item.profileImage,
+                    'record-box-stretch': !item.profileImage
+                  }"
                 >
-                  <span *ngIf="item.streakFact.wins > 2">
-                    Won {{ item.streakFact.wins }} of
-                    <span *ngIf="colI == 0">his</span>
-                    <span *ngIf="colI == 1">her</span>
-                    <span *ngIf="colI == 2">their</span>
-                    last
-                    {{ item.streakFact.overall }} matches
+                  <div class="row record-tabs">
+                    <div
+                      class="col-6"
+                      [ngClass]="{
+                        'record-tab-active': !this.recordToggles[colI][i],
+                        'record-tab-inactive': this.recordToggles[colI][i]
+                      }"
+                      (click)="this.recordToggles[colI][i] = false"
+                    >
+                      2024
+                    </div>
+                    <div
+                      class="col-6"
+                      [ngClass]="{
+                        'record-tab-active': this.recordToggles[colI][i],
+                        'record-tab-inactive': !this.recordToggles[colI][i]
+                      }"
+                      (click)="this.recordToggles[colI][i] = true"
+                    >
+                      CAREER
+                    </div>
+                  </div>
+                  <span class="" *ngIf="!this.recordToggles[colI][i]">
+                    <div class="record">
+                      <h1>Overall</h1>
+                      <p>
+                        {{ item.recordYear.overallWins }}-{{
+                          item.recordYear.overallLosses
+                        }}-{{ item.recordYear.overallDraws }}
+                      </p>
+                    </div>
+                    <div class="record">
+                      <h1>Tag</h1>
+                      <p>
+                        {{ item.recordYear.tagWins }}-{{
+                          item.recordYear.tagLosses
+                        }}-{{ item.recordYear.tagDraws }}
+                      </p>
+                    </div>
+                    <div class="record">
+                      <h1>Singles</h1>
+                      <p>
+                        {{ item.recordYear.singlesWins }}-{{
+                          item.recordYear.singlesLosses
+                        }}-{{ item.recordYear.singlesDraws }}
+                      </p>
+                    </div>
+                    <div class="record">
+                      <h1>Trio</h1>
+                      <p>
+                        {{ item.recordYear.trioWins }}-{{
+                          item.recordYear.trioLosses
+                        }}-{{ item.recordYear.trioDraws }}
+                      </p>
+                    </div>
+                  </span>
+                  <span class="" *ngIf="this.recordToggles[colI][i]">
+                    <div class="record">
+                      <h1>Overall</h1>
+                      <p>
+                        {{ item.record.overallWins }}-{{
+                          item.record.overallLosses
+                        }}-{{ item.record.overallDraws }}
+                      </p>
+                    </div>
+                    <div class="record">
+                      <h1>Tag</h1>
+                      <p>
+                        {{ item.record.tagWins }}-{{ item.record.tagLosses }}-{{
+                          item.record.tagDraws
+                        }}
+                      </p>
+                    </div>
+                    <div class="record">
+                      <h1>Singles</h1>
+                      <p>
+                        {{ item.record.singlesWins }}-{{
+                          item.record.singlesLosses
+                        }}-{{ item.record.singlesDraws }}
+                      </p>
+                    </div>
+                    <div class="record">
+                      <h1>Trio</h1>
+                      <p>
+                        {{ item.record.trioWins }}-{{
+                          item.record.trioLosses
+                        }}-{{ item.record.trioDraws }}
+                      </p>
+                    </div>
                   </span>
                 </div>
+                <div class="facts-box">
+                  <div class="facts-left" *ngIf="item.streak > 2">
+                    {{ item.streak }} win streak!
+                  </div>
+                  <div
+                    class="facts-right"
+                    [ngClass]="{ 'facts-right-expand': item.streak <= 2 }"
+                  >
+                    <span *ngIf="item.streakFact.wins > 2">
+                      Won {{ item.streakFact.wins }} of
+                      <span *ngIf="colI == 0">his</span>
+                      <span *ngIf="colI == 1">her</span>
+                      <span *ngIf="colI == 2">their</span>
+                      last
+                      {{ item.streakFact.overall }} matches
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </span>
+            </span>
+          </div>
         </div>
       </div>
     </div>

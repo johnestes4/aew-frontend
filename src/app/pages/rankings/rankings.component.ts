@@ -67,6 +67,15 @@ export class RankingsComponent implements OnInit {
         defenses: 0,
       },
     ],
+    [
+      {
+        name: 'AEW Trios Championship',
+        shortName: 'World Trios',
+        champion: [],
+        championTeam: null,
+        defenses: 0,
+      },
+    ],
   ];
   public dateObj: Date = new Date();
   public date: String = '';
@@ -86,8 +95,10 @@ export class RankingsComponent implements OnInit {
     'December',
   ];
   public whichTab: Number = 0;
+  public whichTeam: Number = 2;
   public infoRead: boolean = false;
   public recordToggles = [
+    [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
@@ -96,9 +107,10 @@ export class RankingsComponent implements OnInit {
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
     [false, false, false, false, false, false, false, false, false, false],
+    [false, false, false, false, false, false, false, false, false, false],
   ];
-  public championExpanded = [-1, -1, -1];
-  public championRecordToggles = [false, false, false];
+  public championExpanded = [-1, -1, -1, -1];
+  public championRecordToggles = [false, false, false, false];
   public expandableChampions = [];
   constructor(
     private http: HttpClient,
@@ -179,7 +191,8 @@ export class RankingsComponent implements OnInit {
         this.rankings.push(this.removeChampions(res.data.male, 4));
         this.rankings.push(this.removeChampions(res.data.female, 2));
         this.rankings.push(this.removeChampions(res.data.tag, 1));
-        // console.log(this.rankings);
+        this.rankings.push(this.removeChampions(res.data.trios, 1));
+        console.log(this.rankings);
         this.appComponent.loadingFalse();
       },
     });
@@ -229,6 +242,14 @@ export class RankingsComponent implements OnInit {
 
   test() {
     console.log(this.rankings[0][0].name);
+  }
+
+  switchTeam() {
+    if (this.whichTeam == 2) {
+      this.whichTeam = 3;
+    } else {
+      this.whichTeam = 2;
+    }
   }
 
   ngOnInit(): void {}
