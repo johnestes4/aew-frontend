@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, UrlTree } from '@angular/router';
 import { AppService } from './services/app.service';
-import { GtagAPIService } from '@bloomscorp/ngx-gtag';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +12,7 @@ export class AppComponent {
   public infoRead: boolean = false;
   public dropdown: Boolean = false;
 
-  constructor(private router: Router, public gtag: GtagAPIService) {
+  constructor(private router: Router) {
     if (localStorage.getItem('infoRead') == 'true') {
       this.infoRead = true;
     }
@@ -34,4 +33,5 @@ export class AppComponent {
   public goTo(destination: string) {
     this.router.navigateByUrl(this.router.parseUrl(destination));
   }
+  ngOnInit() {}
 }

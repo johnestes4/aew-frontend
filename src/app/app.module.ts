@@ -9,7 +9,6 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
 import { RouterLinkDirective } from './directives/routerlink.directive';
 import { TonyComponent } from './pages/tony/tony.component';
-import { NgxGoogleTagsManagerModule } from '@bloomscorp/ngx-gtag';
 
 @NgModule({
   declarations: [
@@ -20,16 +19,7 @@ import { NgxGoogleTagsManagerModule } from '@bloomscorp/ngx-gtag';
     RouterLinkDirective,
     TonyComponent,
   ],
-  imports: [
-    NgxGoogleTagsManagerModule.forRoot({
-      trackingId: 'G-5095C3WF0X',
-      trackPageviews: true,
-    }),
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-  ],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

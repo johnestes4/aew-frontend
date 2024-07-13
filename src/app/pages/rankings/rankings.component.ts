@@ -8,6 +8,7 @@ import { TitleService } from '../../services/title.service';
 import { Observable } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { AppService } from 'src/app/services/app.service';
+import { AnalyticsService } from 'src/app/services';
 
 @Component({
   selector: 'app-rankings',
@@ -117,14 +118,10 @@ export class RankingsComponent implements OnInit {
     private rankingsService: RankingsService,
     private titleService: TitleService,
     public appComponent: AppComponent,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private analyticsService: AnalyticsService
   ) {
     this.initialize();
-    appComponent.gtag.sendPageviewData({
-      page_title: 'Rankings',
-      page_path: '/',
-      page_location: 'https://www.elite-rankings.com',
-    });
   }
 
   initialize() {
@@ -252,5 +249,11 @@ export class RankingsComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.analyticsService.trackEvent(
+      'rankings loaded',
+      'rankings loaded into view',
+      'pageload'
+    );
+  }
 }
