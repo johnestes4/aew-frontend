@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { AppService } from 'src/app/services/app.service';
 import { AnalyticsService } from 'src/app/services';
+import { GtagAPIService } from '@bloomscorp/ngx-gtag';
 
 @Component({
   selector: 'app-rankings',
@@ -119,7 +120,8 @@ export class RankingsComponent implements OnInit {
     private titleService: TitleService,
     public appComponent: AppComponent,
     private cdRef: ChangeDetectorRef,
-    private analyticsService: AnalyticsService
+    private analyticsService: AnalyticsService,
+    private gtag: GtagAPIService
   ) {
     this.initialize();
   }
@@ -250,6 +252,7 @@ export class RankingsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.gtag.sendPageviewData();
     this.analyticsService.trackEvent(
       'rankings loaded',
       'rankings loaded into view',

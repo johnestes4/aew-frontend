@@ -310,8 +310,19 @@
                 <div class="arrow-popup" style="background-color: green">
                   <p>
                     UP from
-                    <span *ngIf="item.powerHistory.length == 1">Unranked</span
-                    ><span *ngIf="item.powerHistory.length > 1"
+                    <span
+                      *ngIf="
+                        item.powerHistory.length == 1 ||
+                        item.powerHistory[item.powerHistory.length - 2].place ==
+                          999
+                      "
+                      >Unranked</span
+                    ><span
+                      *ngIf="
+                        item.powerHistory.length > 1 &&
+                        item.powerHistory[item.powerHistory.length - 2]
+                          .place !== 999
+                      "
                       >#{{
                         item.powerHistory[item.powerHistory.length - 2].place
                       }}, power
