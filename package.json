@@ -22,8 +22,9 @@
     "@angular/platform-browser-dynamic": "^18.0.5",
     "@angular/router": "^18.0.5",
     "@bloomscorp/ngx-gtag": "^0.0.6",
+    "angulartics2": "^14.0.0",
     "bootstrap": "^5.3.3",
-    "rxjs": "~6.6.0",
+    "rxjs": "^7.4.0",
     "tslib": "^2.4.0",
     "typescript": "^5.4.5",
     "zone.js": "^0.14.6"

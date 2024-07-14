@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, UrlTree } from '@angular/router';
 import { AppService } from './services/app.service';
-import { GtagAPIService } from '@bloomscorp/ngx-gtag';
+import { Angulartics2GoogleTagManager } from 'angulartics2';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,11 @@ export class AppComponent {
   public infoRead: boolean = false;
   public dropdown: Boolean = false;
 
-  constructor(private router: Router, gtag: GtagAPIService) {
+  constructor(
+    private router: Router,
+    angulartics2GoogleTagManager: Angulartics2GoogleTagManager
+  ) {
+    angulartics2GoogleTagManager.startTracking();
     if (localStorage.getItem('infoRead') == 'true') {
       this.infoRead = true;
     }

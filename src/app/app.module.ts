@@ -9,8 +9,7 @@ import { AdminComponent } from './pages/admin/admin.component';
 import { RankingsComponent } from './pages/rankings/rankings.component';
 import { RouterLinkDirective } from './directives/routerlink.directive';
 import { TonyComponent } from './pages/tony/tony.component';
-import { NgxGoogleTagsManagerModule } from '@bloomscorp/ngx-gtag';
-
+import { Angulartics2Module } from 'angulartics2';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,14 +20,11 @@ import { NgxGoogleTagsManagerModule } from '@bloomscorp/ngx-gtag';
     TonyComponent,
   ],
   imports: [
-    NgxGoogleTagsManagerModule.forRoot({
-      trackingId: 'G-5095C3WF0X',
-      trackPageviews: true,
-    }),
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    Angulartics2Module.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
