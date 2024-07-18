@@ -348,11 +348,29 @@
                   <div
                     class="arrow-popup"
                     style="background-color: red; color: white"
+                    [ngClass]="{
+                      'arrow-popup-long':
+                        item.powerHistory[item.powerHistory.length - 2].place ==
+                        -1
+                    }"
                   >
                     <p>
-                      DOWN from #{{
-                        item.powerHistory[item.powerHistory.length - 2].place
-                      }}, power
+                      DOWN from
+                      <span
+                        *ngIf="
+                          item.powerHistory[item.powerHistory.length - 2]
+                            .place == -1
+                        "
+                        >Champion</span
+                      ><span
+                        *ngIf="
+                          item.powerHistory[item.powerHistory.length - 2]
+                            .place !== -1
+                        "
+                        >#{{
+                          item.powerHistory[item.powerHistory.length - 2].place
+                        }}</span
+                      >, power
                       {{
                         item.powerHistory[item.powerHistory.length - 2].power
                       }}
