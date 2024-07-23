@@ -71,6 +71,7 @@ body {
   align-items: center;
   justify-content: right;
   text-align: right !important;
+  font-variant-numeric: tabular-nums;
 }
 .ranking-power img {
   position: inherit;
@@ -251,6 +252,7 @@ body {
   width: calc(100% - 80px);
 }
 .champion-expanded-name-right {
+  font-variant-numeric: tabular-nums;
   float: left;
   text-align: right;
   height: 100%;
@@ -416,6 +418,7 @@ body {
 
 .champion-power {
   font-size: 24px !important;
+  font-variant-numeric: tabular-nums;
   margin-top: 4px;
 }
 
