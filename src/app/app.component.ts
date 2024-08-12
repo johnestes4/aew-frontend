@@ -10,6 +10,7 @@ import { Angulartics2GoogleTagManager } from 'angulartics2';
 })
 export class AppComponent {
   public loading: Boolean = false;
+  public loadingLong: Boolean = false;
   public infoRead: boolean = false;
   public dropdown: Boolean = false;
 
@@ -30,10 +31,14 @@ export class AppComponent {
 
   public loadingTrue() {
     this.loading = true;
+    setTimeout(() => {
+      this.loadingLong = true;
+    }, 5000);
   }
 
   public loadingFalse() {
     this.loading = false;
+    this.loadingLong = false;
   }
   public goTo(destination: string) {
     this.router.navigateByUrl(this.router.parseUrl(destination));

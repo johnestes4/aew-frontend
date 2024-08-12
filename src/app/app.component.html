@@ -119,7 +119,14 @@
     </div>
   </nav>
   <div id="loading-blackout" *ngIf="this.loading">
-    <div><h1>Loading...</h1></div>
+    <div class="loading-text">
+      <h1>Loading...</h1>
+      <br />
+      <h4 *ngIf="this.loadingLong">
+        Please be patient - the backend server is likely booting back up!
+      </h4>
+    </div>
+    <!-- <div><h4></h4></div> -->
   </div>
   <div id="app-container">
     <router-outlet></router-outlet>

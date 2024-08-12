@@ -195,14 +195,17 @@ nav {
   z-index: 3;
 }
 
-#loading-blackout h1 {
+.loading-text {
   top: -5px;
   margin-top: 150px;
   color: white;
-  display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+
+.loading-text h4 {
+  margin-top: 0px !important;
 }
 
 #info-box {
