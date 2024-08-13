@@ -33,7 +33,7 @@ export class AppComponent {
     this.loading = true;
     setTimeout(() => {
       this.loadingLong = true;
-    }, 5000);
+    }, 8000);
   }
 
   public loadingFalse() {
