@@ -30,6 +30,7 @@ export class AppComponent {
   }
 
   public loadingTrue() {
+    this.loadingLong = false;
     this.loading = true;
     setTimeout(() => {
       this.loadingLong = true;
