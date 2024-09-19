@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WrestlerService } from '../../services/wrestlers.service';
 import { RankingsService } from '../../services/rankings.service';
+import { UtilityService } from 'src/app/services/utility.service';
 import { ShowService } from '../../services/show.service';
 import { TitleService } from '../../services/title.service';
 import { AuthService } from '../../services/auth.service';
@@ -33,8 +34,10 @@ export class AdminComponent implements OnInit {
   wresIndex: number = -1;
   nameEditOn: boolean = false;
   newShow: Show = new Show();
+  popupActive: boolean = false;
+  popupText: string = "";
   authBlock = {
-    password: '',
+    password: 'Dustin&Greg4Ever',
     url: window.location.href,
   };
   authorized: boolean = false;
@@ -71,6 +74,7 @@ export class AdminComponent implements OnInit {
     private wrestlerService: WrestlerService,
     private showService: ShowService,
     private authService: AuthService,
+    private utilityService: UtilityService,
     private rankingsService: RankingsService,
     public appComponent: AppComponent,
     private titleService: TitleService
@@ -162,6 +166,10 @@ export class AdminComponent implements OnInit {
     this.whichNew.push([[null], [[null]]]);
     this.newShow.matches.push(newMatch);
   }
+  deleteMatch(i: number) {
+    this.whichNew.splice(i, 1)
+    this.newShow.matches.splice(i,1)
+  }
   addWinner(matchI: number, match: Match) {
     match.winner.push(this.wrestlers[0].name);
     this.whichNew[matchI][0].push(null);
@@ -240,6 +248,29 @@ export class AdminComponent implements OnInit {
         this.appComponent.loadingFalse();
       },
     });
+  }
+
+  scanTeams() {
+    this.appComponent.loadingTrue();
+
+    this.utilityService.scanTeams(this.authBlock).subscribe({
+      next: (res: any) => {
+        console.log('Teams Scanned');
+        if (res.data.teamsOut.length == 0) {
+          this.popupText = "No New Teams"
+        } else {
+          this.popupText = "New Teams Added:\n"
+          for (let team of res.dat.teamsOut)
+            this.popupText = this.popupText + team + "\n"
+        }
+        this.popupActive = true
+        this.appComponent.loadingFalse();
+      },
+    });
+  }
+  closePopup() {
+    this.popupActive = false
+    this.popupText = ""
   }
 
   // searchWrestler(element) {}

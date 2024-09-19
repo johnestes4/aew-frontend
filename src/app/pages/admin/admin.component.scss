@@ -90,12 +90,19 @@ h1 input {
   background-color: rgba(244, 244, 244, 1);
   width: 80%;
   margin-left: 10%;
-  height: 600px;
+  height: calc(100vh - 325px);
   overflow-y: scroll;
+  position: relative;
+  padding: 0px;
+}
+.match-close-button {
+  position: absolute;
+  right: 10px;
+  top: 5px;
 }
 #panel-container {
   // background-color: green;
-  min-height: 700px;
+  height: calc(100vh - 100px);
   padding-bottom: 20px;
   width: 100%;
 }
@@ -173,4 +180,37 @@ h1 input {
   border: 1px solid rgba(0, 0, 0, 0.5);
   z-index: 4;
   filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.5));
+}
+#popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 600px;
+  min-height: 200px;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, 0.5));
+  text-align: center;
+  padding: 10px;
+}
+#popup-inner {
+  width: 100%;
+  min-height: 200px;
+}
+#popup button {
+  width: 80px;
+}
+
+.center {
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
 }

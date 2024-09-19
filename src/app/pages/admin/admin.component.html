@@ -24,6 +24,14 @@
     <button class="col-sm-4" (click)="this.activeTab = 1">WRES EDIT</button>
     <button class="col-sm-4" (click)="this.activeTab = 2">SCRIPTS</button>
   </div>
+  <div id="popup" *ngIf="this.popupActive">
+    <div id="popup-inner">
+      <p>{{this.popupText}}</p>
+      <div class="center">
+        <button (click)="this.closePopup()">OK</button>
+      </div>
+    </div>
+  </div>
   <div id="newshow-confirm" *ngIf="this.confirmPopup">
     <h4>Is This Right?</h4>
     <p>
@@ -65,13 +73,15 @@
         </div>
       </div>
       <div class="row">
-        <h4>MATCHES <button (click)="addMatch()">+</button></h4>
+        <h4>MATCHES</h4>
         <div id="match-box">
           <div
             class="match"
             *ngFor="let match of this.newShow.matches; let i = index"
           >
             MATCH {{ i + 1 }}
+            <button class="" (click)="deleteMatch(i)">X</button>
+
             <div class="row">
               <div class="col-sm-5">
                 COMPETITORS
@@ -235,6 +245,7 @@
               </div>
             </div>
           </div>
+          <button (click)="addMatch()" style="width: 200px; margin-bottom: 20px;">+</button>
         </div>
       </div>
       <div class="row">
@@ -341,6 +352,10 @@
         <button class="refresh-button" (click)="refreshRankings()">
           RECALCULATE RANKINGS
         </button>
+        <br>
+        <button class="refresh-button" (click)="scanTeams()">
+          SCAN FOR TEAMS
+        </button>
       </div>
     </div>
   </div>
@@ -377,7 +392,7 @@
       <button (click)="saveWrestler()">SAVE</button> -->
 
   <!-- <h1>CREATE A TEAM</h1>
-      
+
       <H1>EDIT A WRESTLER</H1>
       <hr />
       <button (click)="saveWrestler()"></button> -->
