@@ -37,7 +37,7 @@ export class AdminComponent implements OnInit {
   popupActive: boolean = false;
   popupText: string = "";
   authBlock = {
-    password: 'Dustin&Greg4Ever',
+    password: '',
     url: window.location.href,
   };
   authorized: boolean = false;
